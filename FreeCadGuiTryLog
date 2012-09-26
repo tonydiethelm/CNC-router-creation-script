@@ -1,0 +1,49 @@
+# This was the log from FreeCad gui. I created a box, and cut a cylinder out of it. Yay. steal this to create the automatic creation scripts.
+
+
+
+Python 2.7.3 (default, Aug  1 2012, 05:27:35) 
+[GCC 4.6.3] on linux2
+Type 'help', 'copyright', 'credits' or 'license' for more information.
+>>> Gui.activateWorkbench("PartWorkbench")
+>>> App.newDocument()
+>>> App.setActiveDocument("Unnamed")
+>>> App.ActiveDocument=App.getDocument("Unnamed")
+>>> Gui.ActiveDocument=Gui.getDocument("Unnamed")
+>>> App.ActiveDocument.addObject("Part::Box","cube")
+>>> App.ActiveDocument.recompute()
+>>> Gui.SendMsgToActiveView("ViewFit")
+>>> FreeCAD.getDocument("Unnamed").getObject("cube").Height = 1.00
+>>> FreeCAD.getDocument("Unnamed").getObject("cube").Length = 2.00
+>>> FreeCAD.getDocument("Unnamed").getObject("Box").Length = 25.00
+>>> FreeCAD.getDocument("Unnamed").getObject("Box").Width = 2.00
+>>> FreeCAD.getDocument("Unnamed").getObject("Box").Width = 25.00
+>>> FreeCAD.getDocument("Unnamed").getObject("Box").Width = 2.00
+>>> FreeCAD.getDocument("Unnamed").getObject("Box").Width = 5.00
+>>> FreeCAD.getDocument("Unnamed").getObject("cube").Width = 50.00
+>>> Gui.activeDocument().activeView().viewAxometric()
+>>> Gui.SendMsgToActiveView("ViewFit")
+>>> FreeCAD.getDocument("Unnamed").getObject("Box").Length = 75.00
+>>> Gui.SendMsgToActiveView("ViewFit")
+>>> 
+>>> Gui.SendMsgToActiveView("ViewFit")
+>>> App.ActiveDocument.addObject("Part::Cylinder","Cylinder")
+>>> App.ActiveDocument.recompute()
+>>> Gui.SendMsgToActiveView("ViewFit")
+>>> FreeCAD.getDocument("Unnamed").getObject("Cylinder").Height = 1.00
+>>> FreeCAD.getDocument("Unnamed").getObject("Cylinder").Radius = 5.00
+>>> App.getDocument("Unnamed").Cylinder.Placement=App.Placement(App.Vector(0,0,0),App.Rotation(0,0,0,1))
+>>> 
+>>> App.getDocument("Unnamed").Cylinder.Placement=App.Placement(App.Vector(0,0,0),App.Rotation(0,0,0,1))
+>>> 
+>>> App.getDocument("Unnamed").Cylinder.Placement=App.Placement(App.Vector(25,35,0),App.Rotation(0,0,0,1))
+>>> 
+>>> App.getDocument("Unnamed").Cylinder.Placement=App.Placement(App.Vector(25,25,0),App.Rotation(0,0,0,1))
+>>> 
+>>> App.activeDocument().addObject("Part::Cut","Cut")
+>>> App.activeDocument().Cut.Base = App.activeDocument().Box
+>>> App.activeDocument().Cut.Tool = App.activeDocument().Cylinder
+>>> Gui.activeDocument().hide('Box')
+>>> Gui.activeDocument().hide('Cylinder')
+>>> Gui.activeDocument().Cut.ShapeColor = Gui.activeDocument().Box.ShapeColor
+>>> App.ActiveDocument.recompute()

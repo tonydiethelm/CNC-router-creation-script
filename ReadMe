@@ -1,0 +1,35 @@
+Heyo!
+
+The purpose of this is to create a pythong script that will spit out the geometry for a CNC wood router. This CNC router will use MDF/plywood, use belts for X and Y, use a screw for Z, and be controlled by NEMA23 motors. The script will enable tweaking without touching CAD, not to mention far better book keeping for future changes/tweaks. 
+
+The eventual goal is to use the script in FreeCad to do all the actual CAD work automagically, allowing rapid tweaking.
+
+
+
+Contact information is:
+Tony Diethelm
+tonydiethelm@gmail.com
+
+
+
+
+Organization
+The latest "stable" router script will be here, as well as the lastest tinkering version. Versioning is done by which build I'm on (3rd router), which major idea of that router I'm on (currently B, which differs from A in how the belts are attached), and a version number (1 as of this writing) to seperate the tinkering version from the Oh God Don't Touch It It Mostly Works version. 
+
+I suppose that since I'm now using GIT, I really don't need to do this any more...
+
+As well, there are DXF (CAD) files in mm and inches for the lastest stableish version.
+
+
+
+
+To Do(in no particular order)
+:
+I need a graphical interpretation of the rules I've used to make the scripts. I have them on paper, which doesn't help anyone else. I need to clean them up and put them here for everyone to see. It'll make the scripts so much easier to interpret and manage.
+
+Get this thing working in FreeCad.
+
+I desperately need a complete code cleanup.
+
+
+
