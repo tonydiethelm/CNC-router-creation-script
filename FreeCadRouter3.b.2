@@ -1,0 +1,77 @@
+# This is an attempt to create a FreeCad macro to create all the parts for my CNC router.
+
+
+
+
+
+
+# Rough Draft
+
+#load part module
+#create a new document
+#create an offset variable
+#create a box representing the piece of MDF, correctly sized, at offset.
+#create cylinders representing the holes to be drilled, properly placed, with offset.
+#create boxes representing the slidey holes to be cut, properly placed, with offset.
+#subtract all of the cylinders and boxes from the first piece.
+#recompute the shape
+#show it on the screen
+#save it
+
+
+
+
+
+
+#slightly less rough draft
+
+#load part module
+    #How do I know all the modules I need? Part for box and cyclinder, Draft for cut
+
+import Part, PartGui, Draft #DraftGui not there. Others work.
+#from FreeCAD import Base #not needed, kill it.
+#create a new document
+
+doc=App.newDocument()   #This works
+
+#create a box representing the piece of MDF, correctly sized
+#create cylinders representing the holes to be drilled, properly placed.
+#create boxes representing the slidey holes to be cut, properly placed.
+#subtract all of the cylinders and boxes from the first piece.
+#recompute the shape
+    #Do I need to do this after every cut, or can I do this once at the end?
+    #doc.recompute() Updates the document. This also prepares the visual representation of the new part object. So, I think I can do this once at the end.
+
+#show it on the screen
+#    Part.show(name)
+#save it
+
+
+
+
+
+#slightly even less rough draft. Make a part with a hole in it. 10x10mm
+
+#load part module
+import Part, PartGui, Draft #DraftGui not there. Others work.
+
+
+#create a new document
+doc=App.newDocument()   #This works
+
+#create a box representing the piece of MDF, correctly sized
+#create cylinders representing the holes to be drilled, properly placed.
+#create boxes representing the slidey holes to be cut, properly placed.
+#subtract all of the cylinders and boxes from the first piece.
+#recompute the shape
+    #Do I need to do this after every cut, or can I do this once at the end?
+    #doc.recompute() Updates the document. This also prepares the visual representation of the new part object. So, I think I can do this once at the end.
+
+#show it on the screen
+#    Part.show(name)
+#save it
+
+
+
+
+
