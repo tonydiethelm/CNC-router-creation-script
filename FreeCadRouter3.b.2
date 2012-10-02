@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # This is an attempt to create a FreeCad macro to create all the parts for my CNC router.
 
 
@@ -31,12 +32,7 @@
 
 
 	#create size, location, etc variables
-		#size   will contain three points. lower left, upper right, and MDF size. 
-		#For the main part only. 
-		#On second thought, this is a terrible idea, will make makebox full of math. terrible.
-
 		#size   will contain length(X), width(Y, what I think of as height), and MDF size for height.
-
 		#holes   contains [locations, radii, MDF size] of all the bolt holes to be drilled in the part
 		#locations   contains [lower left, upper right, and MDF] of all the slidey holes to be cut.
 
@@ -53,17 +49,15 @@
 	#subtract all of the cylinders and boxes from the first piece. recompute the shape
 		#I deeply suspect I should do this after each part.
 
+	#move the part
+		# I was going to create everything offset.
+		# It seems much simpler to create it all and then move it.
+		# That's how all the examples are done. When in Rome....
+
+
 #show it on the screen. Think this is done by the recompute.
 
 #save it
-
-
-
-
-
-
-
-
 
 
 
@@ -75,6 +69,8 @@
 
 #load part module
 import Part, Draft
+from FreeCAD import Base   #why the difference?
+
 
 #create a new document
 doc=App.newDocument()
@@ -87,9 +83,9 @@ widthy = 10
 height = MDF
 
 #create an offset vector variable
-offset = [10,0,0]
+offset = Base.Vector(10,0,0)
 pnt = offset
-dir = [0,0,1]
+dir = Base.Vector(0,0,1)
 
 #For Each Part
 size = [lengthx,widthy,MDF]
