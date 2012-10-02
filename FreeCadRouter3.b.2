@@ -18,16 +18,34 @@
 
 #For Each Part
 	# Do the math.
+
+	#Almost all of my pieces are made in points from 0,0 to width,height. This is not always true.
+	#the makebox function works on length, width, height. I can abandon points, but...
+	#some of the pieces extend negative X direction.
+	#I need to calculate length and width for each part, even though it's already done for most?
+	#I need to adjust offsets differently for the part and the holes and slideys?
+	#if lower corner is -10mm, makebox starts it at 0, and offset of 100 takes it to 100.
+	#hole was supposed to be at -5, now needs to be at 105. 
+	#So, I think I will simply readjust the offset by the abs(negative amount), then by standard offset
+
+
+
 	#create size, location, etc variables
-		#size   will contain three points. lower left, upper right, and MDF size. For the main part only
-		#holes   contains locations, radii, MDF size of all the bolt holes to be drilled in the part
-		#locations   contains lower left, upper right, and MDF of all the slidey holes to be cut.
+		#size   will contain three points. lower left, upper right, and MDF size. 
+		#For the main part only. 
+		#On second thought, this is a terrible idea, will make makebox full of math. terrible.
+
+		#size   will contain length(X), width(Y, what I think of as height), and MDF size for height.
+
+		#holes   contains [locations, radii, MDF size] of all the bolt holes to be drilled in the part
+		#locations   contains [lower left, upper right, and MDF] of all the slidey holes to be cut.
 
 	#create a box representing the piece of MDF, correctly sized, at offset.
 		#use offset and size
 
 	#create cylinders representing the holes to be drilled, properly placed, with offset.
 		#use offset, locations(add in offset to make correct) and radii
+
 
 	#create boxes representing the slidey holes to be cut, properly placed, with offset.
 		#use offset, locations
@@ -50,7 +68,10 @@
 
 
 
-#slightly less rough draft. Make a part with a hole in it. 10x10mm
+
+
+#slightly less rough draft, more proof of concept. 
+#Make a part with a hole in it. 10x10mm, 2mm diameter hole in center
 
 #load part module
 import Part, Draft
@@ -59,19 +80,26 @@ import Part, Draft
 doc=App.newDocument()
 
 #Do all the algebra calcs for the parts
+MDF = 3/4*25.4
+radius = 1
+lengthx = 10
+widthy = 10
+height = MDF
 
 #create an offset vector variable
-	#offset
+offset = [10,0,0]
+pnt = offset
+dir = [0,0,1]
 
 #For Each Part
-	# Do the math.
-	#create size, location, etc variables
-		#size   will contain three points. lower left, upper right, and MDF size. For the main part only
-		#holes   contains locations, radii, MDF size of all the bolt holes to be drilled in the part
-		#locations   contains lower left, upper right, and MDF of all the slidey holes to be cut.
+size = [lengthx,widthy,MDF]
+holes = [[5,5],radius,MDF]
 
 	#create a box representing the piece of MDF, correctly sized, at offset.
 		#use offset and size
+testfixture = Part.makeBox(lengthx,widthy,MDF,[pnt,dir])
+
+
 
 	#create cylinders representing the holes to be drilled, properly placed, with offset.
 		#use offset, locations(add in offset to make correct) and radii
