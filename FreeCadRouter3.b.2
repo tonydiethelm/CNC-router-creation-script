@@ -15,44 +15,56 @@
 #Do all the algebra calcs for the parts
 
 #create an offset vector variable
-	#offset
+	#firstoffset
+	#secondoffset
+
 
 #For Each Part
 	# Do the math.
 
-	#Almost all of my pieces are made in points from 0,0 to width,height. This is not always true.
+	#Almost all of my pieces are made in points from 0,0 to width(x),height(y). This is not always true.
+	#Note, my script assumes width,height is X,Y. FreeCad assumes Length, Width, Height is X,Y,Z.
 	#the makebox function works on length, width, height. I can abandon points, but...
 	#some of the pieces extend negative X direction.
 	#I need to calculate length and width for each part, even though it's already done for most?
 	#I need to adjust offsets differently for the part and the holes and slideys?
-	#if lower corner is -10mm, makebox starts it at 0, and offset of 100 takes it to 100.
-	#hole was supposed to be at -5, now needs to be at 105. 
-	#So, I think I will simply readjust the offset by the abs(negative amount), then by standard offset
+	#if lower corner is -10mm, makebox starts it at 0
+	#hole was supposed to be at -5, now needs to be at 5. 
+	#So, I think I will simply readjust the offset by the abs(negative amount)
+	#This means I need two offset variables. One inside the part, one for the part. 
+
+	#OR!
+	#I can just make the part, shift it over to match the script I have already done,
+	#then all my holes and slideys match up fine... THEN offset the whole thing. It means an extra
+	#move for the initial block... but it also means not having offsets all over the stupid place.
+	#go with this......
 
 
 
 	#create size, location, etc variables
 		#size   will contain length(X), width(Y, what I think of as height), and MDF size for height.
+			#changed my mind, this only obfuscates what I'm doing. just calculate 'em.
 		#holes   contains [locations, radii, MDF size] of all the bolt holes to be drilled in the part
-		#locations   contains [lower left, upper right, and MDF] of all the slidey holes to be cut.
+		#slideys   contains [lower left, upper right, and MDF] of all the slidey holes to be cut.
 
 	#create a box representing the piece of MDF, correctly sized, at offset.
 		#use offset and size
 
 	#create cylinders representing the holes to be drilled, properly placed, with offset.
-		#use offset, locations(add in offset to make correct) and radii
+		#use locations, radii, and MDF in holes variable
 
 
 	#create boxes representing the slidey holes to be cut, properly placed, with offset.
-		#use offset, locations
+		#use locations in slideys variable
 
 	#subtract all of the cylinders and boxes from the first piece. recompute the shape
 		#I deeply suspect I should do this after each part.
 
 	#move the part
-		# I was going to create everything offset.
-		# It seems much simpler to create it all and then move it.
-		# That's how all the examples are done. When in Rome....
+		#I was going to create everything offset.
+		#It seems much simpler to create it all and then move it.
+		#That's how all the examples are done. When in Rome....
+		#Move the final assembled part out of the way
 
 
 #show it on the screen. Think this is done by the recompute.
@@ -68,15 +80,15 @@
 #Make a part with a hole in it. 10x10mm, 2mm diameter hole in center
 
 #load part module
-import Part, Draft
-from FreeCAD import Base   #why the difference?
+import FreeCAD, Part, Draft
+#from FreeCAD import Base   #why the difference?
 
 
 #create a new document
 doc=App.newDocument()
 
 #Do all the algebra calcs for the parts
-MDF = 3/4*25.4
+MDF = 19.05
 radius = 1
 lengthx = 10
 widthy = 10
@@ -84,28 +96,50 @@ height = MDF
 
 #create an offset vector variable
 offset = Base.Vector(10,0,0)
-pnt = offset
-dir = Base.Vector(0,0,1)
+insidepartoffset = Base.Vector(0,0,0)
 
 #For Each Part
-size = [lengthx,widthy,MDF]
-holes = [[5,5],radius,MDF]
+size = [lengthx,widthy]
+holes = [[5,5],radius]
 
 	#create a box representing the piece of MDF, correctly sized, at offset.
-		#use offset and size
-testfixture = Part.makeBox(lengthx,widthy,MDF,[pnt,dir])
+testfixture = Part.makeBox(lengthx,widthy,MDF) #works
+testfixture = Part.makeBox(lengthx,widthy,MDF,Base.Vector(15,0,0)) #also works, can do offset at creation
+
+
+#example from FreeCAD website
+#import Part
+#mycube = Part.makeBox(2,2,2)
+#Part.show(mycube)
+
+
 
 
 
 	#create cylinders representing the holes to be drilled, properly placed, with offset.
-		#use offset, locations(add in offset to make correct) and radii
+hole3=Part.makeCylinder(holes[1],MDF,Base.Vector(holes[0][0],holes[0][1],0)
+
+
 
 	#create boxes representing the slidey holes to be cut, properly placed, with offset.
 		#use offset, locations
 
 	#subtract all of the cylinders and boxes from the first piece. recompute the shape
 		#I deeply suspect I should do this after each part.
+
 		doc.recompute() #Updates the document. also prepares the visual of the new part
+	#move the part
+		# I was going to create everything offset.
+		# It seems much simpler to create it all and then move it.
+		# That's how all the examples are done. When in Rome....
+
+#example from FreeCAD website
+#import FreeCAD
+#from Draft import *
+#myrect = makeRectangle(4,3)
+#mydistance = FreeCAD.Vector(2,2,0)
+#move(myrect,mydistance)
+
 
 
 #show it on the screen. Think this is done by the recompute.
