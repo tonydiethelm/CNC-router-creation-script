@@ -104,7 +104,7 @@ holes = [[5,5],radius]
 
 	#create a box representing the piece of MDF, correctly sized, at offset.
 testfixture = Part.makeBox(lengthx,widthy,MDF) #works
-testfixture = Part.makeBox(lengthx,widthy,MDF,Base.Vector(15,0,0)) #also works, can do offset at creation
+testfixture2 = Part.makeBox(lengthx,widthy,MDF,Base.Vector(15,0,0)) #also works, can do offset at creation
 
 
 #example from FreeCAD website
@@ -117,7 +117,8 @@ testfixture = Part.makeBox(lengthx,widthy,MDF,Base.Vector(15,0,0)) #also works, 
 
 
 	#create cylinders representing the holes to be drilled, properly placed, with offset.
-hole3=Part.makeCylinder(holes[1],MDF,Base.Vector(holes[0][0],holes[0][1],0)
+hole=Part.makeCylinder(holes[1],MDF)
+hole2=Part.makeCylinder(holes[1],MDF,Base.Vector(holes[0][0],holes[0][1],0)
 
 
 
@@ -126,6 +127,7 @@ hole3=Part.makeCylinder(holes[1],MDF,Base.Vector(holes[0][0],holes[0][1],0)
 
 	#subtract all of the cylinders and boxes from the first piece. recompute the shape
 		#I deeply suspect I should do this after each part.
+		#Draft.cut(first,second) #yeah, that doesn't work either. 
 
 		doc.recompute() #Updates the document. also prepares the visual of the new part
 	#move the part
