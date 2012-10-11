@@ -101,21 +101,14 @@ offset = FreeCAD.Vector(10,0,0)
 testfixture = Part.makeBox(lengthx,widthy,MDF) #works
 #testfixture2 = Part.makeBox(lengthx,widthy,MDF,Base.Vector(15,0,0)) #also works, can do offset at creation
 
-
 #example from FreeCAD website
 #import Part
 #mycube = Part.makeBox(2,2,2)
 #Part.show(mycube)
 
-
-
-
-
 	#create cylinders representing the holes to be drilled, properly placed, with offset.
 #hole=Part.makeCylinder(holes[1],MDF)
-hole=Part.makeCylinder(radius,MDF,Base.Vector(5,5,0)
-
-
+hole=Part.makeCylinder(radius,MDF,FreeCAD.Vector(5,5,0))
 
 	#create boxes representing the slidey holes to be cut, properly placed, with offset.
 		#use offset, locations
@@ -134,7 +127,6 @@ hole=Part.makeCylinder(radius,MDF,Base.Vector(5,5,0)
 
 testfixture = testfixture.cut(hole)
 
-
 		#doc.recompute() #Updates the document. also prepares the visual of the new part. doesn't actually seem to work though... damnit.
 #Try this
 #App.ActiveDocument.recompute()
@@ -148,13 +140,10 @@ Part.show(testfixture)
 Gui.activeDocument().activeView().viewAxometric()
 Gui.SendMsgToActiveView("ViewFit")
 
-
 	#move the part
 		# I was going to create everything offset.
 		# It seems much simpler to create it all and then move it.
 		# That's how all the examples are done. When in Rome....
-
-
 
 #example from FreeCAD website. this example doesn't actually work....
 #import FreeCAD
@@ -169,12 +158,43 @@ Gui.SendMsgToActiveView("ViewFit")
 #>>> test2 = Part.makeBox(1,1,1)
 #>>> test2.translate(FreeCAD.Vector(5,5,0))
 
-
-
-
-
 #show it on the screen. Think this is done by the recompute.
 
 #save it
+
+
+
+
+
+
+
+#cleaned up...
+#import FreeCAD, Part, Draft
+#doc=App.newDocument()
+#MDF = 19.05
+#radius = 1
+#lengthx = 10
+#widthy = 10
+#height = MDF
+#offset = FreeCAD.Vector(10,0,0)
+#testfixture = Part.makeBox(lengthx,widthy,MDF)
+#hole=Part.makeCylinder(radius,MDF,FreeCAD.Vector(5,5,0))
+#testfixture = testfixture.cut(hole)
+#testfixture.translate(FreeCAD.Vector(5,0,0))
+#App.ActiveDocument.recompute()
+#Part.show(testfixture)
+#Gui.activeDocument().activeView().viewAxometric()
+#Gui.SendMsgToActiveView("ViewFit")
+
+
+
+
+
+
+
+
+
+
+
 
 
