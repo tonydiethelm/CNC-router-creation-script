@@ -19,7 +19,8 @@
 #To Do List:
 #Check that the table calculations still work. I recently changed them to be 6" instead of 1ft, and it probably wreaked havoc.
 #try this with a different size of MDF to see if it still works.
-#clean up the math so it doesn't spit out .0000004444455555 stupidity.
+#clean up the math so it doesn't spit out .0000004444455555 stupidity. Perhaps I don't care about this...
+
 
 
 
@@ -233,6 +234,48 @@ def makethepart(Xlength,Ylength,firstoffset,holes,slideys,secondoffset):
     thepart.translate(secondoffset)
     Part.show(thepart)
 
+#FUNCTION FOR POPULATING HOLES VARIABLE
+    #Notes - holes=[[radius,Xoffset,Yoffset],etc]
+    #define it. pass it the name of the variable to go through, the radius needed
+    #for each entry in the given variable, append a new list entry to holes consisting of...
+    #radius,name[i][0],name[i][1]
+    #Note! since this will have multiple entries, need to extend this to holes outside the function
+def populateholes(name,radius):
+    thingy=[]
+    for i in name:
+        thingy.append([radius,name[i][0],name[i][1]])
+    return thingy
+
+#FUNCTION FOR POPULATING SLIDIES VARIABLE
+    #Notes - slidies=[[length,width,Xoffset,Yoffset],etc]
+    #define it. pass it the name of the variable to go through and the number of entries it has.
+        #I'm lazy, and don't want to do the math.
+    #for each odd entry in the given variable, append a new list entry to slidies consisting of...
+    #name[i+1][0]-name[i][0],name[i+1][1]-name[i][1],name[i][0],name[i][1] 
+    #Note! since this will have multiple entries, need to extend this to holes outside the function
+def populateslidies(name):
+    thingy = []
+    for i in range(0,len(name),2):
+        thingy.append([name[i+1][0]-name[i][0],name[i+1][1]-name[i][1],name[i][0],name[i][1]])
+    return thingy
+
+
+
+
+
+
+#PURE NOTES TO COPY INTO EACH SECTION SO I DON'T HAVE TO KEEP LOOKING UP FOR FUNCTION DEFINITIONS, ETC.
+#firstoffset = FreeCAD.Vector(blah,blah,0)
+#holes=[[radius,Xoffset,Yoffset],etc]
+#slidies=[[length,width,Xoffset,Yoffset],etc]
+#secondoffset = FreeCAD.Vector(blah,blah,0)
+#populateholes(name,radius)
+#populateslidies(name)
+#makethepart(Xlength,Ylength,firstoffset,holes,slideys,secondoffset)
+
+
+
+
 
 
 
@@ -329,6 +372,57 @@ else:
 	YRailLength = YTravel + YGantryWidth
 
 
-SpindleClampLength = 10+FudgeFactor+SpindleDiameter+FudgeFactor+NutHoleRadius+FudgeFactor+NutHoleOffset
+#SpindleClampLength = 10+FudgeFactor+SpindleDiameter+FudgeFactor+NutHoleRadius+FudgeFactor+NutHoleOffset
+SpindleClampLength = 20+FudgeFactor+SpindleDiameter+FudgeFactor+NutHoleRadius+FudgeFactor+NutHoleOffset
 
 
+
+
+#DO ALL THE PIECES
+
+
+#SPINDLE CLAMPS
+
+#		space for clamping bolt is 25mm
+
+SpindleClampCorner = [[0,0] , [SpindleClampWidth,SpindleClampLength]]
+
+SpindleClampNutHoles = [[SpindleClampCorner[0][0]+NutHoleOffset,SpindleClampCorner[0][1]+NutHoleOffset] , \
+           		[SpindleClampCorner[1][0]-NutHoleOffset,SpindleClampCorner[0][1]+NutHoleOffset]] 
+
+SpindleHoleLocation = [SpindleClampWidth/2,SpindleClampCorner[1][1]-10-FudgeFactor-(SpindleDiameter/2)] 
+
+TightenerSpace = [[SpindleClampCorner[0][0],SpindleClampCorner[1][1]-25],\
+                  [SpindleClampCorner[0][0]+25,SpindleClampCorner[1][1]],\
+                  [SpindleClampCorner[1][0]-25,SpindleClampCorner[1][1]-25],\
+                  [SpindleClampCorner[1][0],SpindleClampCorner[1][1]]]
+
+SqueezyBit = [[SpindleClampCorner[1][0]/2-5,SpindleClampCorner[0][1]+15],\
+              [SpindleClampCorner[1][0]/2+5,SpindleClampCorner[1][1]]]
+
+#firstoffset = FreeCAD.Vector(blah,blah,0)
+#holes=[[radius,Xoffset,Yoffset],etc]
+#slidies=[[length,width,Xoffset,Yoffset],etc]
+#secondoffset = FreeCAD.Vector(blah,blah,0)
+#populateholes(name,radius)
+#populateslidies(name)
+#makethepart(Xlength,Ylength,firstoffset,holes,slideys,secondoffset)
+
+
+#set up inputs to FreeCAD function
+firstoffset = FreeCAD.Vector(0,0,0)
+secondoffset = FreeCAD.Vector(1000,0,0)
+Xlength=SpindleClampWidth
+Ylength=SpindleClampLength
+#holes=[[radius,Xoffset,Yoffset],etc]
+holes=[]
+holes.extend(populateholes(SpindleClampNutHoles,NutHoleRadius))
+holes.append(populateholes(SpindleHoleLocation,SpindleDiameter/2))
+#slidies=[[length,width,Xoffset,Yoffset],etc]
+slidies=[]
+slidies.extend(populateslidies(TightenerSpace))
+slidies.append(populateslidies(SqueezyBit))
+#make the part
+makethepart(Xlength,Ylength,firstoffset,holes,slidies,secondoffset)
+
+#Fuck I hope this works...
