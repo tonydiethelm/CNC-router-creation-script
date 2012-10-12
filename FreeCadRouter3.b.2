@@ -179,12 +179,12 @@ import sys
 #	ask if they want Z overtravel (to cut the table)
 
 
-SpindleClampWidth = 100 #This is the width of the spindle clamp. I should make this calculated from the spindle diameter. I was trying to minimize this to keep Y axis wastage to a minimum.
-SpindleDiameter = 65 #If you're using a hand router, and it has different diamters along the Z axis... You'll have to think on your feet here.
+SpindleClampWidth = 300 #This is the width of the spindle clamp. I should make this calculated from the spindle diameter. I was trying to minimize this to keep Y axis wastage to a minimum.
+SpindleDiameter = 100 #If you're using a hand router, and it has different diamters along the Z axis... You'll have to think on your feet here.
 ZRodLength = 381 #This is usable Z length, not counting mounting bearings or attachment shaft.
 ZRodDiameter = 11.2 #This is the diameter of the screw. I fudge wiggle room on later, so don't do it here.
 ZRodBearingDiameter = 24 #This is the diameter of the mounting bearing for the Z rod. 
-VacTubeDiameter = 12.0 #I was using a small tube as a vac system. It didn't work well frankly, so you might ignore this. 
+
 
 
 
@@ -213,10 +213,10 @@ XGantryWidth = 25*8 #How wide do you want the X axis Gantry to be? Wider = More 
 
 def makethepart(Xlength,Ylength,firstoffset,holes,slideys,secondoffset):
     #make the part, with firstoffset
-    thepart = Part.makeBox(lengthx,widthy,MDF,firstoffset)
+    thepart = Part.makeBox(Xlength,Ylength,MDF,firstoffset)
     #go through all the holes, make 'em with offsets, cut 'em out, etc
     #Notes - hole=[[radius,Xoffset,Yoffset],etc]
-    for i in holes:
+    for i in range(0,len(holes),1):
         #make the cylinder, with offsets
         ahole=Part.makeCylinder(holes[i][0],MDF,FreeCAD.Vector(holes[i][1],holes[i][2],0))
         #cut it out from the main part and recalculate the part
@@ -224,9 +224,9 @@ def makethepart(Xlength,Ylength,firstoffset,holes,slideys,secondoffset):
         App.ActiveDocument.recompute()
     #go through all the slideys, make 'em with offsets, cut 'em out, etc
     #notes - slidies=[[length,width,Xoffset,Yoffset],etc]
-    for i in slidies:
+    for i in range(0,len(slidies),1):
         #make the box, with offsets
-        aslidey=Part.makeBox(slidies[i][0],slidies[i][1],MDF,Base.Vector(slidies[i][2],slidies[i][3]))
+        aslidey=Part.makeBox(slidies[i][0],slidies[i][1],MDF,FreeCAD.Vector(slidies[i][2],slidies[i][3]))
         #cut it from the main part and recalculate the part.
         thepart=thepart.cut(aslidey)
         App.ActiveDocument.recompute()
@@ -242,7 +242,7 @@ def makethepart(Xlength,Ylength,firstoffset,holes,slideys,secondoffset):
     #Note! since this will have multiple entries, need to extend this to holes outside the function
 def populateholes(name,radius):
     thingy=[]
-    for i in name:
+    for i in range(0,len(name),1):
         thingy.append([radius,name[i][0],name[i][1]])
     return thingy
 
@@ -287,7 +287,7 @@ ThreeQuarterInch = 19.05
 ThreeEighthsInch = 9.525
 BoltRadius = QuarterInch/2
 BearingBoltRadius = ThreeEighthsInch/2
-MDF = ThreeQuarterInch
+MDF = 25.4
 Rail = ThreeQuarterInch  #I use 3/4" L bracket from Home Depot/Lowes.
 NutHoleRadius = 25.4/2
 NutHoleOffset = NutHoleRadius*2
@@ -390,7 +390,7 @@ SpindleClampCorner = [[0,0] , [SpindleClampWidth,SpindleClampLength]]
 SpindleClampNutHoles = [[SpindleClampCorner[0][0]+NutHoleOffset,SpindleClampCorner[0][1]+NutHoleOffset] , \
            		[SpindleClampCorner[1][0]-NutHoleOffset,SpindleClampCorner[0][1]+NutHoleOffset]] 
 
-SpindleHoleLocation = [SpindleClampWidth/2,SpindleClampCorner[1][1]-10-FudgeFactor-(SpindleDiameter/2)] 
+SpindleHoleLocation = [[SpindleClampWidth/2,SpindleClampCorner[1][1]-25-FudgeFactor-(SpindleDiameter/2)]] 
 
 TightenerSpace = [[SpindleClampCorner[0][0],SpindleClampCorner[1][1]-25],\
                   [SpindleClampCorner[0][0]+25,SpindleClampCorner[1][1]],\
@@ -411,18 +411,20 @@ SqueezyBit = [[SpindleClampCorner[1][0]/2-5,SpindleClampCorner[0][1]+15],\
 
 #set up inputs to FreeCAD function
 firstoffset = FreeCAD.Vector(0,0,0)
-secondoffset = FreeCAD.Vector(1000,0,0)
+secondoffset = FreeCAD.Vector(1000,600,0)
 Xlength=SpindleClampWidth
 Ylength=SpindleClampLength
 #holes=[[radius,Xoffset,Yoffset],etc]
 holes=[]
 holes.extend(populateholes(SpindleClampNutHoles,NutHoleRadius))
-holes.append(populateholes(SpindleHoleLocation,SpindleDiameter/2))
+holes.extend(populateholes(SpindleHoleLocation,SpindleDiameter/2))
 #slidies=[[length,width,Xoffset,Yoffset],etc]
 slidies=[]
 slidies.extend(populateslidies(TightenerSpace))
-slidies.append(populateslidies(SqueezyBit))
+slidies.extend(populateslidies(SqueezyBit))
 #make the part
 makethepart(Xlength,Ylength,firstoffset,holes,slidies,secondoffset)
 
 #Fuck I hope this works...
+Gui.activeDocument().activeView().viewAxometric()
+Gui.SendMsgToActiveView("ViewFit")
