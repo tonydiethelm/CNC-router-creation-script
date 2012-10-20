@@ -1,9 +1,6 @@
 Heyo!
 
-The purpose of this is to create a pythong script that will spit out the geometry for a CNC wood router. This CNC router will use MDF/plywood, use belts for X and Y, use a screw for Z, and be controlled by NEMA23 motors. The script will enable tweaking without touching CAD, not to mention far better book keeping for future changes/tweaks. 
-
-The eventual goal is to use the script in FreeCad to do all the actual CAD work automagically, allowing rapid tweaking.
-
+The purpose of this is to create a python script that will spit out the geometry for a CNC wood router. This CNC router will use MDF/plywood, use belts for X and Y, use a screw for Z, and be controlled by NEMA23 motors. The script will enable tweaking without touching CAD, not to mention far better book keeping for future changes/tweaks. 
 
 
 Contact information is:
@@ -22,14 +19,6 @@ As well, there are DXF (CAD) files in mm and inches for the lastest stableish ve
 
 
 
-
-To Do(in no particular order)
-:
-I need a graphical interpretation of the rules I've used to make the scripts. I have them on paper, which doesn't help anyone else. I need to clean them up and put them here for everyone to see. It'll make the scripts so much easier to interpret and manage.
-
-Get this thing working in FreeCad.
-
-I desperately need a complete code cleanup.
 
 
 
