@@ -237,8 +237,7 @@ XGantryWidth = 25*8 #How wide do you want the X axis Gantry to be? Wider = More 
 #They probably won't change, but might. If you want more room to put in the X motor for example, you could increase the height of the Y rail. Perhaps you might want to make the nutholder thinner to save room on the Y axis. Perhaps you want more spring space. Dunno...
 YRailHeight = 120 #This is the width of the piece that the Y rails sit on. 
 YRailDepth = 80
-NutHolder = 60 # The nutholder space is the space with the two vertical slits on the Y gantry. 
-NutHolder = 75 #why did I do this? sigh... This was the one that went into my machine. It can definately be made smaller, which will save wasted Y space. 
+NutHolder = 15 #Shaved down from 75. Only room for one slidey cutout now. 
 FudgeFactor = 5 #I used this around edges to give myself some room. 
 SpringSpace = 15 #Note, this is to give some room for the compressed spring, and is NOT indicative of how large the slidey hole will be. Slidey holes are usually twice spring space.
 XRailThickness = 50 #This is thickness of the piece of wood the X rails sits on. You'll definately want to change this for your machine. 
@@ -260,6 +259,8 @@ if ZRodLength > ZRailLength:
 
 
 #Y GANTRY CALCULATIONS
+
+#In an attempt to make this skinnier, I am going to move the Y motor mount and slidey cutout over, mount the motor on the other side, and slash the hell out of the nut holder. Nut holder will now be only one slidey cutout and not as tall. 
 #left to right
 YGantryWidth = FudgeFactor + BearingDiameter + NutHolder + BearingRadius + BearingRadiusPlusRail + SpindleClampWidth + BearingRadius + BearingRadiusPlusRail + SpringSpace + FudgeFactor + BearingDiameter + FudgeFactor
 #bottom to top
@@ -582,17 +583,15 @@ MotorMountHoles =[[YMotorSpot[0][0]-30+6.43,YMotorSpot[0][1]-30+6.43] , \
                   [YMotorSpot[0][0]+30-6.43,YMotorSpot[0][1]-30+6.43]] 
 
 #second and first two are for Z bearings
-#third and fourth two are for nut holder
-#sixth and fifth two are for bottom Y bearings
+#third two are for nut holder
+#fourth and fifth two are for bottom Y bearings
 #last two are for an idler bearing to allow Y belt to tighten
 SlideyBoltHoles =[[YGantryZSlideyX-SpringSpace,YGantryTopBearingY-ThreeEighthsInch/2] , \
                   [YGantryZSlideyX+SpringSpace,YGantryTopBearingY+ThreeEighthsInch/2] , \
                   [YGantryZSlideyX-SpringSpace,FudgeFactor+BearingRadius-ThreeEighthsInch/2] , \
                   [YGantryZSlideyX+SpringSpace,FudgeFactor+BearingRadius+ThreeEighthsInch/2] , \
-                  [FudgeFactor + BearingDiameter + QuarterInch,SpringSpace] , \
-                  [FudgeFactor + BearingDiameter + QuarterInch*2,YGantryTopBearingY] , \
-                  [FudgeFactor + BearingDiameter + NutHolder - QuarterInch*2,SpringSpace] , \
-                  [FudgeFactor + BearingDiameter + NutHolder - QuarterInch,YGantryTopBearingY] , \
+                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch*2,SpringSpace*4] , \
+                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch,YGantryTopBearingY-SpringSpace*4] , \
                   [YGantryLeftRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
                   [YGantryLeftRollerX+ThreeEighthsInch/2,YGantryBottomBearingY+SpringSpace] , \
                   [YGantryRightRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
