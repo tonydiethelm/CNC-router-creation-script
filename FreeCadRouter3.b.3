@@ -562,6 +562,51 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 
 
 
+#DRAW NUTHOLDER
+
+#make two of these, it needs reinforcing and requires two so it doesn't torque.
+#32mm for the nut, QuarterInch for the bolt, How much for the rest? Space is 34mm
+#fork it, half inch? 15mm. It'll be fine. don't want it to split.
+
+#One hole for rod, one hole for a bolt.
+
+#YGantryWidth = FudgeFactor + BearingDiameter + NutHolder + BearingRadius + BearingRadiusPlusRail + SpindleClampWidth + BearingRadius + BearingRadiusPlusRail + SpringSpace + FudgeFactor + BearingDiameter + FudgeFactor
+
+#slidey cutout is at...
+#                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch*2,SpringSpace*4] , \
+#                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch,YGantryTopBearingY-SpringSpace*4] , \
+
+#That means the distance between the Z slidey cutout and the rail is 
+NutSpace=(FudgeFactor+BearingDiameter+NutHolder+BearingRadius+BearingRadiusPlusRail-Rail)-(FudgeFactor+BearingDiameter+NutHolder-QuarterInch)-2 #-2 is for wiggle room.
+
+NutHolderThing=[[0,0],[15+QuarterInch+NutSpace,25+Nema23MotorMount+FudgeFactor]] #+15 and +25 random, need space.
+
+#from Z motor mount...
+
+ZMotorSpot = [[NutHolderThing[1][0]+2+Rail-(Nema23MotorMount/2+FudgeFactor),25+Nema23MotorMount/2]]
+
+BoltHole =[[NutHolderThing[1][0]/2,NutHolderThing[0][0]+15]] 
+
+
+
+#set up inputs to FreeCAD function
+#firstoffset already correct from before
+secondoffset.y = 0.0
+secondoffset = increaseoffsets("x",secondoffset)
+Xlength=NutHolderThing[1][0]
+Ylength=NutHolderThing[1][1]
+#Holes
+holes=[]
+holes.extend(populateholes(ZMotorSpot,ZRodBearingDiameter/2))
+holes.extend(populateholes(BoltHole,QuarterInch))
+#cutouts
+cutouts=[]
+#Make the part
+makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+#increase offset and make part again if needed
+secondoffset = increaseoffsets("y",secondoffset)
+makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+
 
 
 
