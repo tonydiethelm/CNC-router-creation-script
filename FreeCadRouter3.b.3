@@ -564,55 +564,6 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 
 
 
-#DRAW NUTHOLDER
-
-#make two of these, it needs reinforcing and requires two so it doesn't torque.
-#32mm for the nut, QuarterInch for the bolt, How much for the rest? Space is 34mm
-#fork it, half inch? 15mm. It'll be fine. don't want it to split.
-
-#One hole for rod, one hole for a bolt.
-
-#YGantryWidth = FudgeFactor + BearingDiameter + NutHolder + BearingRadius + BearingRadiusPlusRail + SpindleClampWidth + BearingRadius + BearingRadiusPlusRail + SpringSpace + FudgeFactor + BearingDiameter + FudgeFactor
-
-#slidey cutout is at...
-#                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch*2,SpringSpace*4] , \
-#                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch,YGantryTopBearingY-SpringSpace*4] , \
-
-#That means the distance between the Z slidey cutout and the rail is 
-NutSpace=(FudgeFactor+BearingDiameter+NutHolder+BearingRadius+BearingRadiusPlusRail-Rail)-\
-         (FudgeFactor+BearingDiameter+NutHolder-QuarterInch)-2 #-2 is for wiggle room.
-
-NutHolder=[[0,0],[15+QuarterInch+NutSpace,25+Nema23MotorMount+FudgeFactor]] #+15 and +25 random, need space.
-
-#from Z motor mount...
-
-ZMotorSpot = [[NutHolder[1][0]+2+Rail-(Nema23MotorMount/2+FudgeFactor),25+Nema23MotorMount/2]]
-
-BoltHole =[[NutHolder[1][0]/2,NutHolder[0][0]+15]] 
-
-
-
-#set up inputs to FreeCAD function
-#firstoffset already correct from before
-secondoffset.y = 0.0
-secondoffset = increaseoffsets("x",secondoffset)
-Xlength=NutHolder[1][0]
-Ylength=NutHolder[1][1]
-#Holes
-holes=[]
-holes.extend(populateholes(ZMotorSpot,ZRodBearingDiameter/2))
-holes.extend(populateholes(BoltHole,QuarterInch))
-#cutouts
-cutouts=[]
-#Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-#increase offset and make part again if needed
-secondoffset = increaseoffsets("y",secondoffset)
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
-
-
-
 
 
 #DRAW Y GANTRY
@@ -1010,16 +961,16 @@ if Table == "nope":  #they do not have a table, we need to make one
              [UpperCorner[0]-NutHoleOffset,LowerCorner[1]+NutHoleOffset] , \
              [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-NutHoleOffset]] 
     
-    BoltHoles = [[LowerCorner[0]+NutHoleOffset,PropogatedUpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]/4,PropogatedUpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]*2/4,PropogatedUpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]*3/4,PropogatedUpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]-NutHoleOffset,PropogatedUpperCorner[1]-Rail-25]] \
+    BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1]-Rail] , \
+            [UpperCorner[0]/4,UpperCorner[1]-Rail] , \
+            [UpperCorner[0]*2/4,UpperCorner[1]-Rail] , \
+            [UpperCorner[0]*3/4,UpperCorner[1]-Rail] , \
+            [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-Rail]] \
     
     #set up inputs to FreeCAD function
     #firstoffset needs correction.
     firstoffset.x = 0.0
-    secondoffset.x = 2000.0
+    secondoffset.x = 3000.0
     secondoffset.y = 2000.0
     #secondoffset = increaseoffsets("y",secondoffset)
     Xlength=UpperCorner[0]
