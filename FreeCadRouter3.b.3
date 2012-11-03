@@ -210,7 +210,7 @@ ZRodBearingDiameter = 24.0 #This is the diameter of the mounting bearing for the
 
 
 
-Table = "nope" #Yup, you already have a table to put the gantry on. You don't need one. change to "nope" if you want one and the script will spit out parts for a crappy table. Change the values below too.
+Table = "yup" #Yup, you already have a table to put the gantry on. You don't need one. change to "nope" if you want one and the script will spit out parts for a crappy table. Change the values below too.
 if Table == "yup":
     TableX = 1474.5 #This is set for my table. This is actual length of the X rail, not cutting length. 
     TableY = 569.0 #This is set for my table. This is the Y distance between XRail to XRail, not cutting length. 
@@ -281,7 +281,9 @@ YGantryRightRollerX = YGantryWidth - BearingRadius
 
 # X GANTRY CALCULATIONS
 #bottom to top
-XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + BitAndChuck + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ Nema23MotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor
+#XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + BitAndChuck + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ Nema23MotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor
+XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ Nema23MotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor  #Took out BitAndChuck
+
 #left to right
 XGantryWidth = YRailDepth + MDF + BearingAssyToRail + MDF + MDF + NutHoleOffset + NutHoleRadius*2 + FudgeFactor + SpindleDiameter/2 + FudgeFactor
 #positions for the X rail bearings, top and bottom, X and Y
@@ -290,7 +292,9 @@ XGantryBearingXLeft = FudgeFactor + BearingBoltRadius
 XGantryBearingXRight = XGantryWidth - FudgeFactor - BearingBoltRadius
 XGantryBottomBearingY = FudgeFactor + SpringSpace
 #This is the lower right corner of the Y rail atachments, for easy calculations later.
-XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + BitAndChuck]
+#XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + BitAndChuck]
+XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel] #BitAndChuck
+
 #I need these to calculate where the holes go on the table endcaps and the X gantry
 MiddleOfXRail = XGantryTopBearingY-BearingRadiusPlusRail-XRailThickness/2
 # these are locations for the holes for the Y belts. Belts should go through these holes and fold down.
