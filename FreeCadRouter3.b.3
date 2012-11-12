@@ -199,7 +199,7 @@ SkateBearingBoltRadius = 4
 #	ask Z required distances.
 #	ask if they want Z overtravel (to cut the table)
 
-MDF = 25.4 #What size MDF are you using?
+MDF = 19.05 #What size MDF are you using? 12.7 is 1/2". 19.05 is 3/4". 25.4" is 1".
 #SpindleClampWidth = 100 #This is the width of the spindle clamp. I was doing this manually, now is calculated below. 
 SpindleDiameter = 65.0 #If you're using a hand router, and it has different diameters along the Z axis... You'll have to think on your feet here.
 ZRodLength = 381.0 #This is usable Z length, not counting mounting bearings or attachment shaft.
@@ -216,8 +216,8 @@ if Table == "yup":
     TableY = 569.0 #This is set for my table. This is the Y distance between XRail to XRail, not cutting length. 
 else: #If you want extra space around your table, ask for it in X and Y travel.
     # I set these to 0 so Python wouldn't wig out. 
-    XTravel = 25.4*12*3# How long of X travel do you want?
-    YTravel = 25.4*12*3# How long of Y travel do you want?
+    XTravel = 25.4*12*1# How long of X travel do you want?
+    YTravel = 25.4*10*1# How long of Y travel do you want?
 
 #Note that the Z travel is assuming a distance between the top of the X rail/table and the Y gantry. 
 ZTravel = 25.4*4 #What amount of Z travel (space between X rail height and bit) should there be?
