@@ -266,13 +266,13 @@ if ZRodLength > ZRailLength:
 #taking out the side to side fudgefactors. we don't need them. 
 
 #left to right
-YGantryWidth = BearingDiameter + NutHolder + BearingRadius + BearingRadiusPlusRail + SpindleClampWidth + BearingRadius + BearingRadiusPlusRail + BearingDiameter #SpringSpace + BearingDiameter #taking out Springspace. These go in opposite directions, they can overlap a bit.
+YGantryWidth = BearingDiameter+ BearingRadius + BearingRadiusPlusRail + SpindleClampWidth + BearingRadius + BearingRadiusPlusRail + BearingDiameter
 #bottom to top
 YGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ Nema23MotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor
 # X and Y locations for the rail bearings
 YGantryTopBearingY = FudgeFactor + SpringSpace + BearingRadiusPlusRail + YRailHeight + BearingRadiusPlusRail
 YGantryBottomBearingY = FudgeFactor + SpringSpace
-YGantryZRollerX = BearingDiameter + NutHolder + BearingRadius
+YGantryZRollerX = BearingDiameter + BearingRadius
 YGantryZSlideyX = YGantryZRollerX + BearingRadiusPlusRail + SpindleClampWidth + BearingRadiusPlusRail
 YGantryLeftRollerX = BearingRadius
 YGantryRightRollerX = YGantryWidth - BearingRadius
@@ -646,8 +646,8 @@ SlideyBoltHoles =[[YGantryZSlideyX-SpringSpace,YGantryTopBearingY-ThreeEighthsIn
                   [YGantryZSlideyX+SpringSpace,YGantryTopBearingY+ThreeEighthsInch/2] , \
                   [YGantryZSlideyX-SpringSpace,FudgeFactor+BearingRadius-ThreeEighthsInch/2] , \
                   [YGantryZSlideyX+SpringSpace,FudgeFactor+BearingRadius+ThreeEighthsInch/2] , \
-                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch*2,SpringSpace*4] , \
-                  [FudgeFactor+BearingDiameter+NutHolder-QuarterInch,YGantryTopBearingY-SpringSpace*4] , \
+                  [FudgeFactor+BearingDiameter-QuarterInch*2,SpringSpace*4] , \
+                  [FudgeFactor+BearingDiameter-QuarterInch,YGantryTopBearingY-SpringSpace*4] , \
                   [YGantryLeftRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
                   [YGantryLeftRollerX+ThreeEighthsInch/2,YGantryBottomBearingY+SpringSpace] , \
                   [YGantryRightRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
