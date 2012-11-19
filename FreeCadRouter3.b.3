@@ -226,7 +226,7 @@ else: #If you want extra space around your table, ask for it in X and Y travel.
 ZTravel = 25.4*4 #What amount of Z travel (space between X rail height and bit) should there be?
 #BitAndChuck = 60 #What's the approx length of your bit and chuck? Overestimate. Don't need this. Slide up the Z rail to make extra room.
 ZOverTravel = 25.4*6/4 #What amount of Z overtravel (to cut below the X rail line) should there be? This allows you to cut into your own table. I thought it would be nice to be able to custom cut your own table.
-XGantryWidth = 25*8 #How wide do you want the X axis Gantry to be? Wider = More Stable of course. I could calculate this, but I thought folks might want to choose this for themselves. 
+#XGantryWidth = 25*8 #How wide do you want the X axis Gantry to be? This is calulated below in the X gantry calcs. I'm leaving it here so I can specify it myself if I want to. 
 
 
 
@@ -290,7 +290,11 @@ YGantryRightRollerX = YGantryWidth - BearingRadius
 XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ Nema23MotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor  #Took out BitAndChuck
 
 #left to right
+#This should be wide enough for the Y gantry railings and extend so it goes as far as the bit. 
+#You could shorten it of course... Your call. 
 XGantryWidth = YRailDepth + MDF + BearingAssyToRail + MDF + MDF + NutHoleOffset + NutHoleRadius*2 + FudgeFactor + SpindleDiameter/2 + FudgeFactor
+
+
 #positions for the X rail bearings, top and bottom, X and Y
 XGantryTopBearingY = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + BearingRadiusPlusRail
 XGantryBearingXLeft = FudgeFactor + BearingBoltRadius
