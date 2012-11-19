@@ -489,8 +489,9 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 ZRail = [[0,0] , [SpindleClampWidth,ZRailLength]]
 ZRailNutHoles = [[ZRail[0][0]+NutHoleOffset,ZRail[1][1]-NutHoleOffset] , \
            		 [ZRail[1][0]-NutHoleOffset,ZRail[1][1]-NutHoleOffset]] 
-ZRailBoltHoles = [[ZRail[1][0]/2,ZRail[1][1]/4],\
-                  [ZRail[1][0]/2,ZRail[1][1]*3/4]]
+#Not needed any more. the spindle clamp nuts will hold these together fine. 
+#ZRailBoltHoles = [[ZRail[1][0]/2,ZRail[1][1]/4],\
+#                  [ZRail[1][0]/2,ZRail[1][1]*3/4]]
 ZRailBoltSlides = [[ZRail[0][0]+NutHoleOffset-BoltRadius,MDF/2-BoltRadius],\
               	   [ZRail[0][0]+NutHoleOffset+BoltRadius,ZRail[1][1]*3/4],\
 		           [ZRail[1][0]-NutHoleOffset-BoltRadius,MDF/2-BoltRadius],\
@@ -514,7 +515,8 @@ Ylength=ZRail[1][1]
 #Holes
 holes=[]
 holes.extend(populateholes(ZRailNutHoles,NutHoleRadius))
-holes.extend(populateholes(ZRailBoltHoles,BearingBoltRadius))
+#Not needed any more. the bolts for the spindle clamps and Z limit switches will do the trick.
+#holes.extend(populateholes(ZRailBoltHoles,BearingBoltRadius))
 #cutouts
 cutouts=[]
 cutouts.extend(populatecutouts(ZRailBoltSlides))
