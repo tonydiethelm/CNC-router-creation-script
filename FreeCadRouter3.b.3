@@ -566,7 +566,7 @@ Xlength=ZMotorMount[1][0]
 Ylength=ZMotorMount[1][1]
 #Holes
 holes=[]
-holes.extend(populateholes(ZMotorSpot,ZRodBearingDiameter/2))
+holes.extend(populateholes(ZMotorSpot,ZRodBearingDiameter/2)) 
 holes.extend(populateholes(MotorMountHoles,2.5))
 #cutouts
 cutouts=[]
@@ -602,7 +602,7 @@ NutHolderThing=[[0,0],[15+QuarterInch+NutSpace,15+Nema23MotorMount+FudgeFactor]]
 
 ZMotorSpot = [[NutHolderThing[1][0]+2+Rail-(Nema23MotorMount/2+FudgeFactor),25+Nema23MotorMount/2]]
 
-BoltHole =[[NutHolderThing[1][0]/2,NutHolderThing[0][0]+15]] 
+#BoltHole =[[NutHolderThing[1][0]/2,NutHolderThing[0][0]+15]] #Don't need this any more. Use the bolts holding the nut to hold these together, if you use two. 
 
 
 
@@ -614,7 +614,7 @@ Xlength=NutHolderThing[1][0]
 Ylength=NutHolderThing[1][1]
 #Holes
 holes=[]
-holes.extend(populateholes(ZMotorSpot,ZRodBearingDiameter/2))
+holes.extend(populateholes(ZMotorSpot,ZRodDiameter/2+2)) #+2 is for further wiggle room, lining this up can be a PITA. This was ZRodBearingDiameter. The hole was just way too crazy big. 
 holes.extend(populateholes(BoltHole,QuarterInch))
 #cutouts
 cutouts=[]
