@@ -17,6 +17,9 @@
 
 
 #To Do List:
+# shorten up the nut holder, but not THAT short. get rid of the bolt hole, it's not needed. 
+#Note, If I ever do put the Y axis on the inside, it'll shorten everything up, yes it will... might also interfere with z axis bolts. maybe.... maybe not actually, now that I look at it. 
+
 #try this with a different size of MDF to see if it still works. Seems to.
 #clean up the math so it doesn't spit out .0000004444455555 stupidity. Perhaps I don't care about this...
 #create beveling so the bolt heads don't stick out.
@@ -246,10 +249,12 @@ XRailThickness = 50 #This is thickness of the piece of wood the X rails sits on.
 
 # CALCULATED CONSTANTS
 
-#Should never be less than QuarterInch*3+NutHoleRadius*4, or it'll be stupid. 
-SpindleClampWidth = SpindleDiameter + (2.0*15.0)
-if SpindleClampWidth < QuarterInch*3+NutHoleRadius*4:
-    SpindleClampWidth = QuarterInch*3+NutHoleRadius*4
+#Should never be less than NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3, or the holes will be stupid. 
+SpindleClampWidth = SpindleDiameter + (2.0*10.0)
+if SpindleClampWidth < NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3:
+    SpindleClampWidth = NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3
+
+
 
 ZRodHoleDiameter = ZRodDiameter+10.0  #Wiggle Room
 # note that Z rail length needs to be long enough for the lead screw or it'll poke out the bottom. No Bueno!
@@ -433,8 +438,8 @@ TightenerSpace = [[SpindleClampCorner[0][0],SpindleClampCorner[1][1]-25],\
                   [SpindleClampCorner[1][0]-25,SpindleClampCorner[1][1]-25],\
                   [SpindleClampCorner[1][0],SpindleClampCorner[1][1]]]
 
-SqueezyBit = [[SpindleClampCorner[1][0]/2-5,SpindleClampCorner[0][1]+15],\
-              [SpindleClampCorner[1][0]/2+5,SpindleClampCorner[1][1]]]
+SqueezyBit = [[SpindleClampCorner[1][0]/2-2.5,SpindleClampCorner[0][1]+15],\
+              [SpindleClampCorner[1][0]/2+2.5,SpindleClampCorner[1][1]]]
 
 #firstoffset = FreeCAD.Vector(blah,blah,0)
 #holes=[[radius,Xoffset,Yoffset],etc]
