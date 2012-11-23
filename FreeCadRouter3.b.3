@@ -590,8 +590,8 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 
 NutHolderThing=[[0,0],[BearingDiameter*2,ZMotorMount[1][1]]]
 
-ZRodCutOut =[[NutHolderThing[0][0]+BearingDiameter,NutHolderThing[1][1]/2-ZRodDiameter/2] , \
-             [NutHolderThing[1][0]-BearingDiameter,NutHolderThing[1][1]/2+ZRodDiameter/2]
+ZRodCutOut =[[NutHolderThing[0][0]+BearingDiameter/2,NutHolderThing[1][1]/2-ZRodDiameter/2] , \
+             [NutHolderThing[1][0]-BearingDiameter/2,NutHolderThing[1][1]/2+ZRodDiameter/2]]
 
 #set up inputs to FreeCAD function
 #firstoffset already correct from before
@@ -633,15 +633,17 @@ MotorMountHoles =[[YMotorSpot[0][0]-30+6.43,YMotorSpot[0][1]-30+6.43] , \
                   [YMotorSpot[0][0]+30-6.43,YMotorSpot[0][1]-30+6.43]] 
 
 #second and first two are for Z bearings
-#third two are for nut holder
-#fourth and fifth two are for bottom Y bearings
+#third and fourth two are for nut holder
+#fifth and sixth two are for bottom Y bearings
 #last two are for an idler bearing to allow Y belt to tighten
 SlideyBoltHoles =[[YGantryZSlideyX-SpringSpace,YGantryTopBearingY-ThreeEighthsInch/2] , \
                   [YGantryZSlideyX+SpringSpace,YGantryTopBearingY+ThreeEighthsInch/2] , \
                   [YGantryZSlideyX-SpringSpace,FudgeFactor+BearingRadius-ThreeEighthsInch/2] , \
                   [YGantryZSlideyX+SpringSpace,FudgeFactor+BearingRadius+ThreeEighthsInch/2] , \
-                  [FudgeFactor+BearingDiameter-QuarterInch*2,SpringSpace*4] , \
-                  [FudgeFactor+BearingDiameter-QuarterInch,YGantryTopBearingY-SpringSpace*4] , \
+                  [YGantryLeftRollerX-BoltRadius,YGantryBottomBearingY+SpringSpace*4] , \
+                  [YGantryLeftRollerX+BoltRadius,YGantryTopBearingY-SpringSpace*4] , \
+                  [YGantryZRollerX-BoltRadius,YGantryBottomBearingY+SpringSpace*4] , \
+                  [YGantryZRollerX+BoltRadius,YGantryTopBearingY-SpringSpace*4] , \
                   [YGantryLeftRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
                   [YGantryLeftRollerX+ThreeEighthsInch/2,YGantryBottomBearingY+SpringSpace] , \
                   [YGantryRightRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
@@ -1043,5 +1045,5 @@ if Table == "nope":  #they do not have a table, we need to make one
 
 
 #Fuck I hope this works...
-Gui.activeDocument().activeView().viewAxometric()
+Gui.activeDocument().activeView().viewTop()
 Gui.SendMsgToActiveView("ViewFit")
