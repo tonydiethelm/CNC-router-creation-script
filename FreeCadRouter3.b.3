@@ -239,8 +239,7 @@ ZOverTravel = 25.4*6/4 #What amount of Z overtravel (to cut below the X rail lin
 # THESE ARE SOFT CONSTANTS
  
 #They probably won't change, but might. If you want more room to put in the X motor for example, you could increase the height of the Y rail. Perhaps you might want to make the nutholder thinner to save room on the Y axis. Perhaps you want more spring space. Dunno...
-YRailHeight = 120 #This is the width of the piece that the Y rails sit on. 
-YRailDepth = 80
+
 NutHolder = 15 #Shaved down from 75. Only room for one slidey cutout now. 
 FudgeFactor = 5 #I used this around edges to give myself some room. 
 SpringSpace = 15 #Note, this is to give some room for the compressed spring, and is NOT indicative of how large the slidey hole will be. Slidey holes are usually twice spring space.
@@ -257,7 +256,8 @@ SpindleClampWidth = SpindleDiameter + (2.0*10.0)
 if SpindleClampWidth < NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3:
     SpindleClampWidth = NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3
 
-
+YRailHeight = MDF+NemaMotorMount+FudgeFactor*2+MDF #This is the width of the piece that the Y rails sit on. 
+YRailDepth = NemaMotorMount+FudgeFactor+NemaMotorMount
 
 ZRodHoleDiameter = ZRodDiameter+10.0  #Wiggle Room
 # note that Z rail length needs to be long enough for the lead screw or it'll poke out the bottom. No Bueno!
