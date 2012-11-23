@@ -176,10 +176,9 @@ BearingAssyToRail = 14.3 #Measured by Tony. Badly
 BearingRadiusPlusRail = 32.4 #Measured by Tony. Badly. 
 IdlerPulleyDiameter = 28 #Measured by Tony. Badly
 PulleyRadius = 8 #Measured by Tony. Badly
-Nema24MotorMount = 60
-Nema23MotorMount = 57
-Nema17MotorMount = 42.3
-NemaMotorMount = Nema24MotorMount
+Nema24 = 60
+Nema23 = 57
+Nema17 = 42.3
 SkateBearingDiameter = 22
 SkateBearingRadius = SkateBearingDiameter/2
 SkateBearingBoltDiameter = 8
@@ -205,6 +204,7 @@ SkateBearingBoltRadius = 4
 #	ask Z required distances.
 #	ask if they want Z overtravel (to cut the table)
 
+MotorSize = Nema24 #These sizes are declared above.
 MDF = 19.05 #What size MDF are you using? 12.7 is 1/2". 19.05 is 3/4". 25.4" is 1".
 #SpindleClampWidth = 100 #This is the width of the spindle clamp. I was doing this manually, now is calculated below. 
 SpindleDiameter = 65.0 #If you're using a hand router, and it has different diameters along the Z axis... You'll have to think on your feet here.
@@ -238,9 +238,8 @@ ZOverTravel = 25.4*6/4 #What amount of Z overtravel (to cut below the X rail lin
 
 # THESE ARE SOFT CONSTANTS
  
-#They probably won't change, but might. If you want more room to put in the X motor for example, you could increase the height of the Y rail. Perhaps you might want to make the nutholder thinner to save room on the Y axis. Perhaps you want more spring space. Dunno...
+#They probably won't change, but might. If you want more room to put in the X motor for example, you could increase the height of the Y rail. Perhaps you want more spring space. Dunno...
 
-NutHolder = 15 #Shaved down from 75. Only room for one slidey cutout now. 
 FudgeFactor = 5 #I used this around edges to give myself some room. 
 SpringSpace = 15 #Note, this is to give some room for the compressed spring, and is NOT indicative of how large the slidey hole will be. Slidey holes are usually twice spring space.
 XRailThickness = 50 #This is thickness of the piece of wood the X rails sits on. You'll definately want to change this for your machine if you're bolting rails to a table for example.
@@ -256,8 +255,8 @@ SpindleClampWidth = SpindleDiameter + (2.0*10.0)
 if SpindleClampWidth < NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3:
     SpindleClampWidth = NutHoleRadius*3+FudgeFactor*3+NutHoleRadius*3
 
-YRailHeight = MDF+NemaMotorMount+FudgeFactor*2+MDF #This is the width of the piece that the Y rails sit on. 
-YRailDepth = NemaMotorMount+FudgeFactor+NemaMotorMount
+YRailHeight = MDF+MotorSize+FudgeFactor*2+MDF #This is the width of the piece that the Y rails sit on. 
+YRailDepth = MotorSize+FudgeFactor+MotorSize
 
 ZRodHoleDiameter = ZRodDiameter+10.0  #Wiggle Room
 # note that Z rail length needs to be long enough for the lead screw or it'll poke out the bottom. No Bueno!
@@ -276,7 +275,7 @@ if ZRodLength > ZRailLength:
 #left to right
 YGantryWidth = BearingDiameter+ BearingRadius + BearingRadiusPlusRail + SpindleClampWidth + BearingRadius + BearingRadiusPlusRail + BearingDiameter
 #bottom to top
-YGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ NemaMotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor
+YGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ MotorSize + FudgeFactor + SkateBearingDiameter + FudgeFactor
 # X and Y locations for the rail bearings
 YGantryTopBearingY = FudgeFactor + SpringSpace + BearingRadiusPlusRail + YRailHeight + BearingRadiusPlusRail
 YGantryBottomBearingY = FudgeFactor + SpringSpace
@@ -289,8 +288,8 @@ YGantryRightRollerX = YGantryWidth - BearingRadius
 
 # X GANTRY CALCULATIONS
 #bottom to top
-#XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + BitAndChuck + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ NemaMotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor
-XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ NemaMotorMount + FudgeFactor + SkateBearingDiameter + FudgeFactor  #Took out BitAndChuck
+#XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + BitAndChuck + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ MotorSize + FudgeFactor + SkateBearingDiameter + FudgeFactor
+XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ MotorSize + FudgeFactor + SkateBearingDiameter + FudgeFactor  #Took out BitAndChuck
 
 #left to right
 #This should be wide enough for the Y gantry railings and extend so it goes as far as the bit. 
@@ -311,7 +310,7 @@ XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + Spri
 MiddleOfXRail = XGantryTopBearingY-BearingRadiusPlusRail-XRailThickness/2
 # these are locations for the holes for the Y belts. Belts should go through these holes and fold down.
 # Make the holes go up from this location.
-MotorBeltHole = [XGantryLowerRightYRailCorner[0],XGantryLowerRightYRailCorner[1]+YRailHeight+BearingRadiusPlusRail+BearingRadius+FudgeFactor+NemaMotorMount/2-PulleyRadius]
+MotorBeltHole = [XGantryLowerRightYRailCorner[0],XGantryLowerRightYRailCorner[1]+YRailHeight+BearingRadiusPlusRail+BearingRadius+FudgeFactor+MotorSize/2-PulleyRadius]
 TightenerBeltHole = [XGantryLowerRightYRailCorner[0],XGantryHeight-FudgeFactor]
 
 if Table == "yup":
@@ -386,6 +385,30 @@ def increaseoffsets(axis,secondoffset):
     if axis == "y":
         secondoffset = secondoffset + FreeCAD.Vector(0,500,0)
     return secondoffset
+
+#FUNCTION FOR POPULATING MotorMountHoles VARIABLE
+    #pass it the MotorSize variable so it knows the size.
+    #Nema24 = 60
+    #Nema23 = 57
+    #Nema17 = 42.3
+    #MotorSize = Nema24
+    #MotorMountHoles = makemotorholes(ZMotorSpot,MotorSize,Nema24,Nema23,Nema17)
+def makemotorholes(MotorSpot,MotorSize,Nema24,Nema23,Nema17):
+    if MotorSize == Nema24:
+        half = MotorSize/2
+        difference = 5.1
+    if MotorSize == Nema23:
+        half = MotorSize/2
+        difference = 5.1
+    if MotorSize == Nema17:
+        half = MotorSize/2
+        difference = 5.65
+    MotorMountHoles =[[MotorSpot[0][0]-half+difference,MotorSpot[0][1]-half+difference] , \
+                      [MotorSpot[0][0]-half+difference,MotorSpot[0][1]+half-difference] , \
+                      [MotorSpot[0][0]+half-difference,MotorSpot[0][1]+half-difference] , \
+                      [MotorSpot[0][0]+half-difference,MotorSpot[0][1]-half+difference]] 
+    return MotorMountHoles
+
 
 
 
@@ -533,24 +556,22 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 
 
 
-
 #DRAW Z MOTOR MOUNT
 
 #heck, make two of these too, it could use reinforcing.
 #This is supposed to drop the middle of the MotorMount(the motor shaft) right between the Y and Z bearings.
 
-ZMotorMount = [[0,0] , [FudgeFactor+(NemaMotorMount/2+BearingRadius+BearingRadiusPlusRail)+SpindleClampWidth,FudgeFactor+NemaMotorMount+FudgeFactor]]
+ZMotorMount = [[0,0] , [FudgeFactor+(MotorSize/2+BearingRadius+BearingRadiusPlusRail)+SpindleClampWidth,FudgeFactor+MotorSize+FudgeFactor]]
 
 ZMotorMountBoltSlides = [[ZMotorMount[1][0]-SpindleClampWidth+NutHoleOffset-BoltRadius,FudgeFactor*2],\
               	         [ZMotorMount[1][0]-SpindleClampWidth+NutHoleOffset+BoltRadius,ZMotorMount[1][1]-FudgeFactor*2],\
 		                 [ZMotorMount[1][0]-NutHoleOffset-BoltRadius,FudgeFactor*2],\
               	         [ZMotorMount[1][0]-NutHoleOffset+BoltRadius,ZMotorMount[1][1]-FudgeFactor*2]]
 
-ZMotorSpot = [[FudgeFactor + NemaMotorMount/2, ZMotorMount[1][1]/2]]
-MotorMountHoles =[[ZMotorSpot[0][0]-30+6.43,ZMotorSpot[0][1]-30+6.43] , \
-                  [ZMotorSpot[0][0]-30+6.43,ZMotorSpot[0][1]+30-6.43] , \
-                  [ZMotorSpot[0][0]+30-6.43,ZMotorSpot[0][1]+30-6.43] , \
-                  [ZMotorSpot[0][0]+30-6.43,ZMotorSpot[0][1]-30+6.43]] 
+ZMotorSpot = [[FudgeFactor + MotorSize/2, ZMotorMount[1][1]/2]]
+
+MotorMountHoles=makemotorholes(ZMotorSpot,MotorSize,Nema24,Nema23,Nema17)
+
 
 #firstoffset = FreeCAD.Vector(blah,blah,0)
 #holes=[[radius,Xoffset,Yoffset],etc]
@@ -626,11 +647,9 @@ YGantryBoltHoles = [[YGantryLeftRollerX,YGantryTopBearingY],\
 	        	    [YGantryRightRollerX,YGantryTopBearingY],\
               	    [YGantryZRollerX,FudgeFactor+BearingRadius]]
 
-YMotorSpot = [[YGantry[1][0]/2, YGantry[1][1] - FudgeFactor - SkateBearingDiameter - FudgeFactor - NemaMotorMount/2]]
-MotorMountHoles =[[YMotorSpot[0][0]-30+6.43,YMotorSpot[0][1]-30+6.43] , \
-                  [YMotorSpot[0][0]-30+6.43,YMotorSpot[0][1]+30-6.43] , \
-                  [YMotorSpot[0][0]+30-6.43,YMotorSpot[0][1]+30-6.43] , \
-                  [YMotorSpot[0][0]+30-6.43,YMotorSpot[0][1]-30+6.43]] 
+YMotorSpot = [[YGantry[1][0]/2, YGantry[1][1]-FudgeFactor-SkateBearingDiameter-FudgeFactor-MotorSize/2]]
+
+MotorMountHoles=makemotorholes(YMotorSpot,MotorSize,Nema24,Nema23,Nema17)
 
 #second and first two are for Z bearings
 #third and fourth two are for nut holder
@@ -648,8 +667,8 @@ SlideyBoltHoles =[[YGantryZSlideyX-SpringSpace,YGantryTopBearingY-ThreeEighthsIn
                   [YGantryLeftRollerX+ThreeEighthsInch/2,YGantryBottomBearingY+SpringSpace] , \
                   [YGantryRightRollerX-ThreeEighthsInch/2,YGantryBottomBearingY-SpringSpace] , \
                   [YGantryRightRollerX+ThreeEighthsInch/2,YGantryBottomBearingY+SpringSpace] , \
-	        	  [YGantry[1][0]/2-NemaMotorMount,YGantryHeight-SkateBearingRadius-SkateBearingBoltRadius] , \
-		          [YGantry[1][0]/2+NemaMotorMount,YGantryHeight-SkateBearingRadius+SkateBearingBoltRadius]]
+	        	  [YGantry[1][0]/2-MotorSize,YGantryHeight-SkateBearingRadius-SkateBearingBoltRadius] , \
+		          [YGantry[1][0]/2+MotorSize,YGantryHeight-SkateBearingRadius+SkateBearingBoltRadius]]
 
 
 #set up inputs to FreeCAD function
@@ -771,11 +790,9 @@ XGantryBoltHoles = [[XGantryLowerRightYRailCorner[0]-MDF/2,XGantryLowerRightYRai
 		    [XGantryLowerRightYRailCorner[0]-MDF-YRailDepth+NutHoleOffset,XGantryLowerRightYRailCorner[1]+YRailHeight-MDF/2]]
 
 #X axis motor holes
-XMotorSpot = [[XGantryLowerRightYRailCorner[0]-MDF-NemaMotorMount/2-FudgeFactor,XGantryLowerRightYRailCorner[1]+MDF+NemaMotorMount/2+FudgeFactor]]
-MotorMountHoles = [[XMotorSpot[0][0]-30+6.43,XMotorSpot[0][1]-30+6.43] , \
-                   [XMotorSpot[0][0]-30+6.43,XMotorSpot[0][1]+30-6.43] , \
-                   [XMotorSpot[0][0]+30-6.43,XMotorSpot[0][1]+30-6.43] , \
-                   [XMotorSpot[0][0]+30-6.43,XMotorSpot[0][1]-30+6.43]] 
+XMotorSpot = [[XGantryLowerRightYRailCorner[0]-MDF-MotorSize/2-FudgeFactor,XGantryLowerRightYRailCorner[1]+MDF+MotorSize/2+FudgeFactor]]
+
+MotorMountHoles=makemotorholes(XMotorSpot,MotorSize,Nema24,Nema23,Nema17)
 
 #bolt slidey holes for the bearings that ride on botton of rail, plus springs.
 SlideyBoltHoles = [[XGantryBearingXLeft-BearingBoltRadius,XGantryBottomBearingY-SpringSpace] , \
