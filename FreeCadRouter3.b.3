@@ -926,7 +926,6 @@ if Table == "nope":  #they do not have a table, we need to make one
                          [BeltSpot[3][0]+QuarterInch,BeltSpot[3][1]+QuarterInch]]
     #Note, I need the middle supports to be sunk a bit so I can lay table and some sacrificial MDF down.
     BoltHoles = [[YRail[0][0]+BearingAssyToRail+MDF+MDF/2,NutHoleOffset] , \
-                [YRail[0][0]+BearingAssyToRail+MDF+MDF/2,UpperCorner[1]/2] , \
                 [YRail[0][0]+BearingAssyToRail+MDF+MDF/2,UpperCorner[1]-NutHoleOffset] , \
                 \
                 [YRail[1][0]/3,NutHoleOffset] , \
@@ -936,7 +935,6 @@ if Table == "nope":  #they do not have a table, we need to make one
                 [YRail[1][0]*2/3,UpperCorner[1]-NutHoleOffset-25],\
                 \
                 [YRail[1][0]-BearingAssyToRail-MDF-MDF/2,NutHoleOffset] , \
-                [YRail[1][0]-BearingAssyToRail-MDF-MDF/2,UpperCorner[1]/2] , \
                 [YRail[1][0]-BearingAssyToRail-MDF-MDF/2,UpperCorner[1]-NutHoleOffset]] 
     
     #set up inputs to FreeCAD function
@@ -976,10 +974,8 @@ if Table == "nope":  #they do not have a table, we need to make one
     UpperCorner = [XTravel+XGantryWidth,25*6]
     
     NutHoles = [[LowerCorner[0]+NutHoleOffset,LowerCorner[1]+NutHoleOffset] , \
-             [LowerCorner[0]+NutHoleOffset,UpperCorner[1]/2] , \
              [LowerCorner[0]+NutHoleOffset,UpperCorner[1]-NutHoleOffset] , \
              [UpperCorner[0]-NutHoleOffset,LowerCorner[1]+NutHoleOffset] , \
-             [UpperCorner[0]-NutHoleOffset,UpperCorner[1]/2] , \
             [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-NutHoleOffset]] 
     
     BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1]-Rail-25] , \
