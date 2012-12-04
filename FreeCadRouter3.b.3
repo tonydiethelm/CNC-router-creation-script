@@ -353,7 +353,7 @@ def makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset):
     #thepart = thepart.makeFillet(10,edges) #10 is fillet radius.
     #move the part to the second offset. Show it on the screen.
     thepart.translate(secondoffset)
-    Part.show(thepart)
+    return thepart
 
 #FUNCTION FOR POPULATING HOLES VARIABLE
     #Notes - holes=[[radius,Xoffset,Yoffset],etc]
@@ -496,14 +496,13 @@ cutouts=[]
 cutouts.extend(populatecutouts(TightenerSpace))
 cutouts.extend(populatecutouts(SqueezyBit))
 #make the first clamp
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+SpindleClamp1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+SpindleClamp1 = SpindleClamp1.makeFillet(10,[2])
+Part.show(SpindleClamp1)
 #increase the offsets and make the second clamp.
 secondoffset = increaseoffsets("y",secondoffset)
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
-
-
-
+SpindleClamp2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(SpindleClamp2)
 
 
 
@@ -546,11 +545,12 @@ holes.extend(populateholes(ZRailNutHoles,NutHoleRadius))
 cutouts=[]
 cutouts.extend(populatecutouts(ZRailBoltSlides))
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+ZRail1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(ZRail1)
 #increase offset and make part again if needed
 secondoffset = increaseoffsets("y",secondoffset)
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
+ZRail2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(ZRail2)
 
 
 
@@ -596,10 +596,14 @@ holes.extend(populateholes(MotorMountHoles,2.5))
 cutouts=[]
 cutouts.extend(populatecutouts(ZMotorMountBoltSlides))
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+ZMotorMount1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(ZMotorMount1)
 #increase offset and make part again if needed
 secondoffset = increaseoffsets("y",secondoffset)
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+ZMotorMount2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(ZMotorMount2)
+
+
 
 
 
@@ -627,7 +631,8 @@ holes=[]
 cutouts=[]
 cutouts.extend(populatecutouts(ZRodCutOut))
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+NutHolder1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(NutHolder1)
 #increase offset and make part again if needed
 #It's not.
 
@@ -684,15 +689,15 @@ holes.extend(populateholes(YGantryBoltHoles,BearingBoltRadius))
 cutouts=[]
 cutouts.extend(populatecutouts(SlideyBoltHoles))
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
+YGantry1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(YGantry1)
 
 
 
 
 #DRAW Y RAIL PIECE (1)
-#		calculation done above for lengths
-# fillet 1,3,6,19
+#	calculation done above for lengths
+#   fillet 1,3,6,19
 
 YRail = [[0,0] , [YRailLength,YRailHeight]]
 
@@ -719,8 +724,8 @@ holes.extend(populateholes(YRailNutHoles,NutHoleRadius))
 #cutouts
 cutouts=[]
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
+YRail1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(YRail1)
 
 
 
@@ -730,7 +735,7 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 
 
 #DRAW Y TOP AND BOTTOM MIDDLE PIECES (2)
-#fillet 1,3,6,16
+#   fillet 1,3,6,16
 
 YRailTopBottom = [[0,0] , [YRailLength,YRailDepth]]
 
@@ -753,11 +758,12 @@ holes.extend(populateholes(YRailNutHoles,NutHoleRadius))
 #cutouts
 cutouts=[]
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+YTop1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(YTop1)
 #increase offset and make part again if needed
 secondoffset = increaseoffsets("y",secondoffset)
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
+YBottom1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(YBottom1)
 
 
 
@@ -774,7 +780,7 @@ makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 #	XGantryHeight,XGantryWidth,XGantryTopBearingY,XGantryBottomBearingY,XGantryBearingXLeft,
 #	MotorBeltHole, TightenerBeltHole,
 #	XGantryBearingXRight,XGantryLowerRightYRailCorner all calculated above
-#   fillet 1,3,6,75
+#   fillet 1,3,6,32
 
 XGantry = [[0,0] , [XGantryWidth,XGantryHeight]]
 
@@ -824,7 +830,8 @@ cutouts=[]
 cutouts.extend(populatecutouts(SlideyBoltHoles))
 cutouts.extend(populatecutouts(IdlerPulleyTrack))
 #Make the part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+XGantry1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(XGantry1)
 #redo holes variable for second X gantry part. see notes above.
 holes=[]
 holes.extend(populateholes(XGantryBearingBoltHoles,BearingBoltRadius))
@@ -832,8 +839,8 @@ holes.extend(populateholes(XMotorSpot,SkateBearingRadius))
 holes.extend(populateholes(BeltHoleNutHoles,BoltRadius))
 secondoffset = increaseoffsets("x",secondoffset)
 #Make the second part
-makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-
+XGantry2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(XGantry2)
 
 
 
@@ -875,11 +882,12 @@ if Table == "nope":  #they do not have a table, we need to make one
     #cutouts
     cutouts=[]
     #Make the part
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    XRail1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(XRail1)
     #increase offset and make part again if needed
     secondoffset = increaseoffsets("y",secondoffset)
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-    
+    XRail2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(XRail2)
     
     
     
@@ -931,11 +939,12 @@ if Table == "nope":  #they do not have a table, we need to make one
     cutouts=[]
     cutouts.extend(populatecutouts(BeltSpot))
     #Make the part
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Endcap1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(Endcap1)
     #increase offset and make part again if needed
     secondoffset = increaseoffsets("y",secondoffset)
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-    
+    Endcap2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(Endcap2)
        
     
     
@@ -977,11 +986,12 @@ if Table == "nope":  #they do not have a table, we need to make one
     #cutouts
     cutouts=[]
     #Make the part
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    XSide1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(XSide1)
     #increase offset and make part again if needed
     secondoffset = increaseoffsets("y",secondoffset)
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-    
+    XSide2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(XSide2)
     
     
     
@@ -1022,12 +1032,19 @@ if Table == "nope":  #they do not have a table, we need to make one
     #cutouts
     cutouts=[]
     #Make the part
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    XInternal1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(XInternal1)
     #increase offset and make part again if needed
     secondoffset = increaseoffsets("y",secondoffset)
-    makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    XInternal2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+    Part.show(XInternal2)
     
-    
+
+
+
+
+
+
 
 
 
