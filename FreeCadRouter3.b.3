@@ -800,17 +800,9 @@ SlideyBoltHoles = [[XGantryBearingXLeft-BearingBoltRadius,XGantryBottomBearingY-
 IdlerPulleyTrack = [[XGantry[0][0]+20,MiddleOfXRail-SkateBearingBoltRadius] , \
                     [XGantry[1][0]-20,MiddleOfXRail+SkateBearingBoltRadius]]
 
-#hole for the belt to come through
-#MotorBeltHole, TightenerBeltHole
-BeltHoles = [[MotorBeltHole[0]-12,MotorBeltHole[1]] , \
-	        [MotorBeltHole[0]+12,MotorBeltHole[1]+FudgeFactor] , \
-	        [TightenerBeltHole[0]-12,TightenerBeltHole[1]] , \
-	        [TightenerBeltHole[0]+12,TightenerBeltHole[1]+FudgeFactor]]
-#These are bolt holes on either side of the belt hole, and below, to clamp the belt in with a piece of wood.
-BeltHoleNutHoles = [[BeltHoles[0][0]-5,BeltHoles[0][1]-5] , \
-	                [BeltHoles[1][0]+5,BeltHoles[0][1]-5] , \
-	    	        [BeltHoles[2][0]-5,BeltHoles[2][1]-5] , \
-		            [BeltHoles[3][0]+5,BeltHoles[2][1]-5]]
+#These are bolt holes on either side of the belt location, and below, to clamp the belt in with a piece of wood.
+BeltHoleNutHoles = [[TightenerBeltHole[0]-5-12,TightenerBeltHole[1]-5] , \
+	                [TightenerBeltHole[0]+5+12,TightenerBeltHole[1]-5]]
 
 #set up inputs to FreeCAD function
 #firstoffset already correct from before
@@ -829,7 +821,6 @@ holes.extend(populateholes(BeltHoleNutHoles,BoltRadius))
 cutouts=[]
 cutouts.extend(populatecutouts(SlideyBoltHoles))
 cutouts.extend(populatecutouts(IdlerPulleyTrack))
-cutouts.extend(populatecutouts(BeltHoles))
 #Make the part
 makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 #redo holes variable for second X gantry part. see notes above.
