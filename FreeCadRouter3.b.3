@@ -225,7 +225,8 @@ Rail = ThreeQuarterInch  #I use 3/4" L bracket from Home Depot/Lowes. Might also
 ZTravel = 25.4*4 #Z travel is the distance between the top of the X rail and the bottom of the Y gantry. 
 ZOverTravel = 25.4*6/4 #What amount of Z overtravel (to cut below the X rail line) should there be? This allows you to cut into your own table. I thought it would be nice to be able to custom cut your own table.
 XRailThickness = 50 #This is thickness of the piece of wood the X rails sits on. You'll definately want to change this for your machine if you're bolting rails to a table for example.
-
+VacHoseSize = 25.4*3 #Outside diameter of the vac hose you're using. 
+MagnetRadius = 4 #Radius of the magnets you get to hold the vac attachment rig on.
 
 
 Table = "nope" #Yup, you already have a table to put the gantry on. You don't need one. change to "nope" if you want one and the script will spit out parts for a crappy table. Change the values below too.
@@ -243,7 +244,7 @@ else: #If you want extra space around your table, ask for it in X and Y travel.
 #They probably won't change. I pulled these values out of my Bum. :D
 FudgeFactor = 5 #I used this around edges to give myself some room. 
 SpringSpace = 15 #Note, this is to give some room for a compressed spring, and is NOT indicative of how large the slidey hole will be. Slidey holes are usually twice spring space.
-
+SpindleClampBoltSpace = 20
 
 
 
@@ -323,8 +324,7 @@ if Table == "yup":
 else:
 	YRailLength = YTravel + YGantryWidth
 
-#The 20 on the spindle clamp length is to give enough room for a tightening nut.
-SpindleClampLength = 20+FudgeFactor+SpindleDiameter+FudgeFactor+NutHoleRadius+FudgeFactor+NutHoleOffset
+SpindleClampLength = SpindleClampBoltSpace+FudgeFactor+SpindleDiameter+FudgeFactor+NutHoleRadius+FudgeFactor+NutHoleOffset
 
 
 
@@ -462,11 +462,19 @@ SpindleClampCorner = [[0,0] , [SpindleClampWidth,SpindleClampLength]]
 SpindleClampNutHoles = [[SpindleClampCorner[0][0]+NutHoleOffset,SpindleClampCorner[0][1]+NutHoleOffset] , \
            	        	[SpindleClampCorner[1][0]-NutHoleOffset,SpindleClampCorner[0][1]+NutHoleOffset]] 
 
-SpindleHoleLocation = [[SpindleClampWidth/2,SpindleClampCorner[1][1]-25-FudgeFactor-(SpindleDiameter/2)]] 
+SpindleHoleLocation = [[SpindleClampWidth/2,SpindleClampCorner[1][1]-SpindleClampBoltSpace-FudgeFactor-(SpindleDiameter/2)]] 
 
-TightenerSpace = [[SpindleClampCorner[0][0],SpindleClampCorner[1][1]-25],\
+MagnetHoles = [[SpindleClampCorner[0][0]+MagnetRadius*2,SpindleClampCorner[0][1]+MagnetRadius*2],\
+               [SpindleClampCorner[0][0]+MagnetRadius*2,NutHoleRadius*3+MagnetRadius*2],\
+               [SpindleClampCorner[0][0]+MagnetRadius*2,SpindleClampCorner[1][1]-SpindleClampBoltSpace-MagnetRadius*2],\
+               [SpindleClampCorner[1][0]-MagnetRadius*2,SpindleClampCorner[0][1]+MagnetRadius*2],\
+               [SpindleClampCorner[1][0]-MagnetRadius*2,NutHoleRadius*3+MagnetRadius*2],\
+               [SpindleClampCorner[1][0]-MagnetRadius*2,SpindleClampCorner[1][1]-SpindleClampBoltSpace-MagnetRadius*2]] 
+
+
+TightenerSpace = [[SpindleClampCorner[0][0],SpindleClampCorner[1][1]-SpindleClampBoltSpace],\
                   [SpindleClampCorner[0][0]+25,SpindleClampCorner[1][1]],\
-                  [SpindleClampCorner[1][0]-25,SpindleClampCorner[1][1]-25],\
+                  [SpindleClampCorner[1][0]-25,SpindleClampCorner[1][1]-SpindleClampBoltSpace],\
                   [SpindleClampCorner[1][0],SpindleClampCorner[1][1]]]
 
 SqueezyBit = [[SpindleClampCorner[1][0]/2-2.5,SpindleClampCorner[0][1]+15],\
@@ -491,18 +499,66 @@ edges=[2,4,24,42]
 holes=[]
 holes.extend(populateholes(SpindleClampNutHoles,NutHoleRadius))
 holes.extend(populateholes(SpindleHoleLocation,SpindleDiameter/2))
+holes.extend(populateholes(MagnetHoles,MagnetRadius))
 #cutouts=[[length,width,Xoffset,Yoffset],etc]
 cutouts=[]
 cutouts.extend(populatecutouts(TightenerSpace))
 cutouts.extend(populatecutouts(SqueezyBit))
 #make the first clamp
 SpindleClamp1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
-SpindleClamp1 = SpindleClamp1.makeFillet(10,[2])
 Part.show(SpindleClamp1)
 #increase the offsets and make the second clamp.
 secondoffset = increaseoffsets("y",secondoffset)
 SpindleClamp2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 Part.show(SpindleClamp2)
+
+
+
+
+
+
+#VACUUM ATTACHMENTS
+#   Fillet edges....
+
+
+VacAttachmentCorners = [[0,0] , [SpindleClampWidth,SpindleClampLength+FudgeFactor+VacHoseSize+FudgeFactor]]
+
+SpindleHoleLocation = [[SpindleClampWidth/2,SpindleClampCorner[1][1]-25-FudgeFactor-(SpindleDiameter/2)]] 
+
+VacHoseLocation = [[SpindleClampWidth/2,SpindleClampLength+FudgeFactor+VacHoseSize/2]] 
+
+
+#firstoffset = FreeCAD.Vector(blah,blah,0)
+#holes=[[radius,Xoffset,Yoffset],etc]
+#cutouts=[[length,width,Xoffset,Yoffset],etc]
+#secondoffset = FreeCAD.Vector(blah,blah,0)
+#increaseoffsets(axis,secondoffset)
+#populateholes(name,radius)
+#populatecutouts(name)
+#makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+
+#set up inputs to FreeCAD function
+#already set up above, increase them.
+secondoffset.y = 0.0
+secondoffset = increaseoffsets("x",secondoffset)
+Xlength=VacAttachmentCorners[1][0]
+Ylength=VacAttachmentCorners[1][1]
+#holes=[[radius,Xoffset,Yoffset],etc]
+holes=[]
+holes.extend(populateholes(VacHoseLocation,VacHoseSize/2))
+holes.extend(populateholes(SpindleHoleLocation,SpindleDiameter/2))
+holes.extend(populateholes(MagnetHoles,MagnetRadius)) #stolen from the spindle clamp calcs.
+#cutouts=[[length,width,Xoffset,Yoffset],etc]
+cutouts=[]
+#make the 
+VacAttachment1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+#SpindleClamp1 = SpindleClamp1.makeFillet(10,[2])
+Part.show(VacAttachment1)
+#increase the offsets and make the second clamp.
+#Not Needed.
+
+
+
 
 
 

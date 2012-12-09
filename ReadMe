@@ -11,11 +11,7 @@ tonydiethelm@gmail.com
 
 
 Organization
-The latest "stable" router script will be here, as well as the lastest tinkering version. Versioning is done by which build I'm on (3rd router), which major idea of that router I'm on (currently B, which differs from A in how the belts are attached), and a version number (1 as of this writing) to seperate the tinkering version from the Oh God Don't Touch It It Mostly Works version. 
-
-I suppose that since I'm now using GIT, I really don't need to do this any more...
-
-As well, there are DXF (CAD) files in mm and inches for the lastest stableish version.
+I did have a complicated versioning scheme. Now I'm using Git... If you want the latest and greatest, grab the FreeCADRouter script. Individual tweaks will have their own git branches. 
 
 
 
