@@ -517,6 +517,16 @@ Part.show(SpindleClamp2)
 
 
 
+
+
+
+
+
+
+
+
+
+
 #VACUUM ATTACHMENTS
 #   Fillet edges....
 
@@ -611,6 +621,20 @@ Part.show(ZRail2)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #DRAW Z MOTOR MOUNT
 #   Fillet edge 1,3,6,24,
 
@@ -658,6 +682,17 @@ Part.show(ZMotorMount1)
 secondoffset = increaseoffsets("y",secondoffset)
 ZMotorMount2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
 Part.show(ZMotorMount2)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -784,7 +819,7 @@ Ylength=YMotorMount[1][1]
 edges=[]
 #holes=[[radius,Xoffset,Yoffset],etc]
 holes=[]
-holes.extend(populateholes(YMotorSpot,38.1/2))
+holes.extend(populateholes(MotorSpot,38.1/2))
 holes.extend(populateholes(MotorMountHoles,2.5))
 #cutouts=[[length,width,Xoffset,Yoffset],etc]
 cutouts=[]
