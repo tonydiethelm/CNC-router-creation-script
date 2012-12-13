@@ -751,6 +751,63 @@ Part.show(YGantry1)
 
 
 
+
+#YMOTORMOUNT
+#   I need two of these
+#   Fillet edges?
+
+
+YMotorMount = [[0,0] , [MotorSize+FudgeFactor*2,MotorSize+FudgeFactor*2]]
+
+MotorSpot = [[(MotorSize+FudgeFactor*2)/2,(MotorSize+FudgeFactor*2)/2]]
+
+MotorMountHoles=makemotorholes(MotorSpot,MotorSize,Nema24,Nema23,Nema17)
+
+SqueezyBit = [[YMotorMount[1][0]/2-FudgeFactor*3,YMotorMount[0][1]],\
+              [YMotorMount[1][0]/2+FudgeFactor*3,YMotorMount[1][1]]]
+
+#firstoffset = FreeCAD.Vector(blah,blah,0)
+#holes=[[radius,Xoffset,Yoffset],etc]
+#cutouts=[[length,width,Xoffset,Yoffset],etc]
+#secondoffset = FreeCAD.Vector(blah,blah,0)
+#increaseoffsets(axis,secondoffset)
+#populateholes(name,radius)
+#populatecutouts(name)
+#makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+
+#set up inputs to FreeCAD function
+#firstoffset already correct from before
+secondoffset.y = 0.0
+secondoffset = increaseoffsets("x",secondoffset)
+Xlength=YMotorMount[1][0]
+Ylength=YMotorMount[1][1]
+edges=[]
+#holes=[[radius,Xoffset,Yoffset],etc]
+holes=[]
+holes.extend(populateholes(YMotorSpot,38.1/2))
+holes.extend(populateholes(MotorMountHoles,2.5))
+#cutouts=[[length,width,Xoffset,Yoffset],etc]
+cutouts=[]
+cutouts.extend(populatecutouts(SqueezyBit))
+#make the first clamp
+YMotorMount1 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(YMotorMount1)
+#increase the offsets and make the second clamp.
+secondoffset = increaseoffsets("y",secondoffset)
+YMotorMount2 = makethepart(Xlength,Ylength,firstoffset,holes,cutouts,secondoffset)
+Part.show(YMotorMount2)
+
+
+
+
+
+
+
+
+
+
+
+
 #DRAW Y RAIL PIECE (1)
 #	calculation done above for lengths
 #   fillet 1,3,6,19
