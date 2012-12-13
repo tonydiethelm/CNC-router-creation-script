@@ -976,11 +976,11 @@ if Table == "nope":  #they do not have a table, we need to make one
     
     LowerCorner = [0,0]
     UpperCorner = [XTravel+XGantryWidth,XRailThickness]
-    BoltHoles = [[LowerCorner[0]+NutHoleOffset,25] , \
-                [UpperCorner[0]/4,25] , \
-                [UpperCorner[0]/2,25] , \
-                [UpperCorner[0]*3/4,25] , \
-                [UpperCorner[0]-NutHoleOffset,25]] 
+    BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1][1]/2] , \
+                [UpperCorner[0]/4,UpperCorner[1][1]/2] , \
+                [UpperCorner[0]/2,UpperCorner[1][1]/2] , \
+                [UpperCorner[0]*3/4,UpperCorner[1][1]/2] , \
+                [UpperCorner[0]-NutHoleOffset,UpperCorner[1][1]/2]] 
     
     #set up inputs to FreeCAD function
     #firstoffset already correct from before
