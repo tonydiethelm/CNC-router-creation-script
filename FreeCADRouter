@@ -61,7 +61,6 @@
 
 
 #To Do List in sort of order:
-#   Create a vac attachment
 #   create beveling around bolt heads so they don't stick out.
 #   fillet all the edges so the parts look "nicer"
 #   clean up the math so it doesn't spit out .0000000444444 stupidity. I might not actually care...
@@ -201,6 +200,9 @@ PulleyRadius = 8 #Measured by Tony. Badly
 Nema24 = 60
 Nema23 = 57
 Nema17 = 42.3
+Nema24Hole = 38.1
+Nema23Hole = 38.1
+Nema17Hole = 22
 SkateBearingDiameter = 22
 SkateBearingRadius = SkateBearingDiameter/2
 SkateBearingBoltDiameter = 8
@@ -215,6 +217,11 @@ SkateBearingBoltRadius = 4
 #CHANGE THIS STUFF FOR YOUR MACHINE
 
 MotorSize = Nema24 #These sizes are declared above.
+if MotorSize == Nema24 or MotorSize == Nema23:
+    MotorHoleDiameter = Nema24Hole
+if MotorSize == Nema17:
+    MotorHoleDiameter = Nema17Hole
+
 MDF = ThreeQuarterInch #What size MDF are you using?
 SpindleDiameter = 65.0 #If yours has different diameters along the Z axis... You'll have to think on your feet here.
 ZRodLength = 381.0 #This is from the top mounting bearing to the end. "usable" Z rod. Note, if you have mounting space on the other end, that counts here. If you leave that out, it will poke out the bottom.
@@ -819,7 +826,7 @@ Ylength=YMotorMount[1][1]
 edges=[]
 #holes=[[radius,Xoffset,Yoffset],etc]
 holes=[]
-holes.extend(populateholes(MotorSpot,38.1/2))
+holes.extend(populateholes(MotorSpot,MotorHoleDiameter/2))
 holes.extend(populateholes(MotorMountHoles,2.5))
 #cutouts=[[length,width,Xoffset,Yoffset],etc]
 cutouts=[]
@@ -970,7 +977,7 @@ Ylength=XGantry[1][1]
 #Holes
 holes=[]
 holes.extend(populateholes(XGantryBearingBoltHoles,BearingBoltRadius))
-holes.extend(populateholes(XMotorSpot,38.1/2))
+holes.extend(populateholes(XMotorSpot,MotorHoleDiameter/2))
 holes.extend(populateholes(MotorMountHoles,2.5))
 holes.extend(populateholes(BeltHoleNutHoles,BoltRadius))
 #cutouts
