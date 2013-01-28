@@ -317,7 +317,7 @@ XGantryBearingXLeft = FudgeFactor + BearingBoltRadius
 XGantryBearingXRight = XGantryWidth - FudgeFactor - BearingBoltRadius
 XGantryBottomBearingY = FudgeFactor + SpringSpace
 #This is the lower right corner of the Y rail atachments, for easy calculations later.
-XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel]
+XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + FudgeFactor + SpringSpace + BearingRadiusPlusRail]
 
 #I need these to calculate where the holes go on the table endcaps and the X gantry
 MiddleOfXRail = XGantryTopBearingY-BearingRadiusPlusRail-XRailThickness/2
