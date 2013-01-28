@@ -303,7 +303,7 @@ YGantryZSlideyX = YGantryZRollerX + BearingRadiusPlusRail + SpindleClampWidth + 
 
 # X GANTRY CALCULATIONS
 #bottom to top
-XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + YRailHeight + BearingRadiusPlusRail + BearingRadius + FudgeFactor+ MotorSize + FudgeFactor + SkateBearingDiameter + FudgeFactor
+XGantryHeight = FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + YGantryHeight
 
 #left to right
 #This should be wide enough for the Y gantry railings and extend so it goes as far as the bit. 
