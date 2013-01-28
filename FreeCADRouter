@@ -1120,11 +1120,11 @@ if Table == "nope":  #they do not have a table, we need to make one
              [UpperCorner[0]-NutHoleOffset,LowerCorner[1]+NutHoleOffset] , \
             [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-NutHoleOffset]] 
     
-    BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]/4,UpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]*2/4,UpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]*3/4,UpperCorner[1]-Rail-25] , \
-            [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-Rail-25]] \
+    BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1]-Rail-XRailThickness/2] , \
+            [UpperCorner[0]/4,UpperCorner[1]-Rail-XRailThickness/2] , \
+            [UpperCorner[0]*2/4,UpperCorner[1]-Rail-XRailThickness/2] , \
+            [UpperCorner[0]*3/4,UpperCorner[1]-Rail-XRailThickness/2] , \
+            [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-Rail-XRailThickness/2]] \
     
     #set up inputs to FreeCAD function
     #firstoffset needs correction.
@@ -1159,18 +1159,18 @@ if Table == "nope":  #they do not have a table, we need to make one
     #   fillet 1,3,6,18
     
     LowerCorner = [0,0]
-    UpperCorner = [XTravel+XGantryWidth,(6.0*25)-25]
+    UpperCorner = [XTravel+XGantryWidth,(6.0*25)-MDF]
     
     NutHoles = [[LowerCorner[0]+NutHoleOffset,LowerCorner[1]+NutHoleOffset] , \
              [LowerCorner[0]+NutHoleOffset,UpperCorner[1]-NutHoleOffset] , \
              [UpperCorner[0]-NutHoleOffset,LowerCorner[1]+NutHoleOffset] , \
              [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-NutHoleOffset]] 
     
-    BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1]-Rail] , \
-            [UpperCorner[0]/4,UpperCorner[1]-Rail] , \
-            [UpperCorner[0]*2/4,UpperCorner[1]-Rail] , \
-            [UpperCorner[0]*3/4,UpperCorner[1]-Rail] , \
-            [UpperCorner[0]-NutHoleOffset,UpperCorner[1]-Rail]] \
+    BoltHoles = [[LowerCorner[0]+NutHoleOffset,UpperCorner[1]+MDF-Rail-XRailThickness/2] , \
+            [UpperCorner[0]/4,UpperCorner[1]+MDF-Rail-XRailThickness/2] , \
+            [UpperCorner[0]*2/4,UpperCorner[1]+MDF-Rail-XRailThickness/2] , \
+            [UpperCorner[0]*3/4,UpperCorner[1]+MDF-Rail-XRailThickness/2] , \
+            [UpperCorner[0]-NutHoleOffset,UpperCorner[1]+MDF-Rail-XRailThickness/2]] \
     
     #set up inputs to FreeCAD function
     #firstoffset needs correction.
