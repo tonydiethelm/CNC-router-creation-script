@@ -9,8 +9,6 @@
    There is a section devoted to changable constants (ha!) below.
    Go there and change all the variables to fit your parts and the machine you want to make.
        It should be fairly well commented.
-   Also, you need to choose if you're going to use your own table, or have this spit one out for you.
-       If you use your own, make sure to change the variable for the X rail support. 
    At this point, I haven't made this a proper FreeCAD macro yet. 
        1)Open FreeCAD. 
        2)Select Part workbench. 
@@ -26,10 +24,13 @@
 
 #NOTES!
 '''
+   I really need to actually license this thing properly. For now, I have copyright on this script. 
+      I chose to use a Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license. Go wild. Just put my name on it and share your changes please.
+
    My machine is a moveable gantry style. It uses belt or chain for X and Y. Z is a screw.
    I used to have code for a table. It was ... Less than ideal. I changed this to just make a gantry that you fit onto a table.
       So get a scrap table, bolt railings to it, and off you go.
-   I used to have pieces to hold the spinde. I found they had too much wiggle. Now I just strap my spindle to the Z axis gantry.
+   I used to have pieces to hold the spindel. I found they had too much wiggle. Now I just strap my spindle to the Z axis gantry.
    I am an American, and tend to think in inches. I use 25mm whenever I need "about an inch".
       That being said, I worked in metric here.
    I'm not a programmer by trade, so if this is just horribly ugly, please tell me so.(but be nice)
@@ -45,9 +46,14 @@
    MDF connection uses 1/4" bolts. V groove bearings use 3/8" bolts. Idler rollers use 8mm bolts.
       (I'm so sorry to mix Imperial and Metric!)
    I'm using 3/4" L sections from Home Depot/Lowes for my railing. 
-      If you're using something else, change the scripts! Also, I just screwed mine into the wood. 
-      If you want fancy adjustment capability, well... 
+      If you're using something else, change the scripts! 
+      Also, I just screwed mine into the wood. 
+      If you want fancy adjustment, well... 
+      Oh, and if you use a differen size rail, you need to change the variables for bearingdiameterplusrail, etc.
    I assume the table is of equal height with the rails(in the Z direction here for clarification).
+      Sorry, that takes explaining. This used to build a table too. The top of the table was of equal height with the X rails.
+      Now I just bolt rails to an already done table, or an old door. The script still thinks the top of the table is equal in height to the x rails.
+      It isn't. It's 3/4" lower. Until I fix that, you'll need to account for that in your overtravel variable below.
    I also assume that you can raise your spindle up the Z rails.
        Why waste travel space on the chuck?
 
