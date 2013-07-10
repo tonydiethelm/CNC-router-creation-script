@@ -274,7 +274,7 @@ SpindleShimWidth = 40
 
 #I used to calculate these based on motor size. There was no real point. This fits all sane motor sizes with some room to get your finger in there.
 YRailHeight = 120
-YRailDepth = 60
+YRailDepth = 100
 
 YRailLength = TableY + (BearingAssyToRail*2)
 
