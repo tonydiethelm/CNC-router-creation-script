@@ -29,8 +29,8 @@
 
    My machine is a moveable gantry style. It uses belt or chain for X and Y. Z is a screw.
    I used to have code for a table. It was ... Less than ideal. I changed this to just make a gantry that you fit onto a table.
-      So get a scrap table, bolt railings to it, and off you go.
-   I used to have pieces to hold the spindel. I found they had too much wiggle. Now I just strap my spindle to the Z axis gantry.
+      So get a scrap table, bolt railings to it, and off you go. I use an old solid core door.
+   I used to have pieces to hold the spindle. I found they had too much wiggle. Now I just strap my spindle to the Z axis gantry.
    I am an American, and tend to think in inches. I use 25mm whenever I need "about an inch".
       That being said, I worked in metric here.
    I'm not a programmer by trade, so if this is just horribly ugly, please tell me so.(but be nice)
@@ -273,8 +273,8 @@ SpindleShimWidth = 40
 # CALCULATED CONSTANTS
 
 #I used to calculate these based on motor size. There was no real point. This fits all sane motor sizes with some room to get your finger in there.
-YRailHeight = 120
-YRailDepth = 100
+YRailHeight = 120   #Height in Z direction.
+YRailDepth = 100    #Depth in X direction.
 
 YRailLength = TableY + (BearingAssyToRail*2)
 
@@ -336,16 +336,16 @@ XGantryBearingXRight = XGantryWidth - FudgeFactor - BearingBoltRadius
 XGantryBottomBearingY = FudgeFactor + SpringSpace
 
 #This is the lower right corner of the Y rail atachments, for easy calculations later.
-XGantryLowerRightYRailCorner = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + FudgeFactor + SpringSpace + BearingRadiusPlusRail]
+#I'm really sorry, this wass called XGantryLowerRightYRailCorner, but it was WAY too long. I'm sorry for using an acronym as a variable name! I'm sorry!
+XGLRYRC = [FudgeFactor+YRailDepth + MDF, FudgeFactor + SpringSpace + BearingRadiusPlusRail + XRailThickness + Rail + ZTravel + FudgeFactor + SpringSpace + BearingRadiusPlusRail]
 
 #I need these to calculate where the holes go on the table endcaps and the X gantry
 MiddleOfXRail = XGantryTopBearingY-BearingRadiusPlusRail-XRailThickness/2
 
 # these are locations for the holes for the Y belts. Belts should go through these holes and fold down.
-# Make the holes go up from this location.
-MotorBeltHole = [XGantryLowerRightYRailCorner[0],XGantryLowerRightYRailCorner[1]+YRailHeight+BearingRadiusPlusRail+BearingRadius+FudgeFactor+MotorSize/2-PulleyRadius]
+MotorBeltHole = [XGLRYRC[0],XGLRYRC[1]+YRailHeight+BearingRadiusPlusRail+BearingRadius+FudgeFactor+MotorSize/2-PulleyRadius]
 
-TightenerBeltHole = [XGantryLowerRightYRailCorner[0],XGantryHeight-FudgeFactor]
+TightenerBeltHole = [XGLRYRC[0],XGantryHeight-FudgeFactor]
 
 
 
@@ -825,9 +825,7 @@ Part.show(YRail1)
 
 YRailTopBottom = [[0,0] , [YRailLength,YRailDepth]]
 
-YRailNutHoles = [[YRailTopBottom[0][0]+NutHoleOffset,YRailTopBottom[1][1]-NutHoleOffset],\
-              	   [YRailTopBottom[1][0]/2,YRailTopBottom[1][1]-NutHoleOffset],\
-              	   [YRailTopBottom[1][0]-NutHoleOffset,YRailTopBottom[1][1]-NutHoleOffset],\
+YRailNutHoles = [[YRailTopBottom[1][0]/2,YRailTopBottom[1][1]-NutHoleOffset],\
               	   [YRailTopBottom[0][0]+NutHoleOffset,YRailTopBottom[0][1]+NutHoleOffset],\
               	   [YRailTopBottom[1][0]-NutHoleOffset,YRailTopBottom[0][1]+NutHoleOffset]]
 
@@ -865,7 +863,7 @@ Part.show(YBottom1)
 #DRAW X GANTRY PIECE ONE
 #	XGantryHeight,XGantryWidth,XGantryTopBearingY,XGantryBottomBearingY,XGantryBearingXLeft,
 #	MotorBeltHole, TightenerBeltHole,
-#	XGantryBearingXRight,XGantryLowerRightYRailCorner all calculated above
+#	XGantryBearingXRight,XGLRYRC all calculated above
 
 XGantry = [[0,0] , [XGantryWidth,XGantryHeight]]
 
@@ -874,12 +872,12 @@ XGantryBearingBoltHoles = [[XGantryBearingXLeft,XGantryTopBearingY],\
               	   	   [XGantryBearingXRight,XGantryTopBearingY]]
 
 #Bolt holes that connect the Y Rail
-XGantryBoltHoles = [[XGantryLowerRightYRailCorner[0]-MDF/2,XGantryLowerRightYRailCorner[1]+YRailHeight/2],\
-              	    [XGantryLowerRightYRailCorner[0]-MDF-YRailDepth+NutHoleOffset,XGantryLowerRightYRailCorner[1]+MDF/2],\
-		    [XGantryLowerRightYRailCorner[0]-MDF-YRailDepth+NutHoleOffset,XGantryLowerRightYRailCorner[1]+YRailHeight-MDF/2]]
+XGantryBoltHoles = [[XGLRYRC[0]-MDF/2,XGLRYRC[1]+YRailHeight/2],\
+                    [XGLRYRC[0]-MDF-YRailDepth+NutHoleOffset,XGLRYRC[1]+MDF/2],\
+                    [XGLRYRC[0]-MDF-YRailDepth+NutHoleOffset,XGLRYRC[1]+YRailHeight-MDF/2]]
 
 #X axis motor holes
-XMotorSpot = [[XGantryLowerRightYRailCorner[0]-MDF-MotorSize/2-FudgeFactor,XGantryLowerRightYRailCorner[1]+MDF+MotorSize/2+FudgeFactor]]
+XMotorSpot = [[XGLRYRC[0]-MDF-MotorSize/2-FudgeFactor,XGLRYRC[1]+MDF+MotorSize/2+FudgeFactor]]
 
 MotorMountHoles=makemotorholes(XMotorSpot,MotorSize,Nema24,Nema23,Nema17)
 
@@ -911,6 +909,7 @@ holes.extend(populateholes(XGantryBearingBoltHoles,BearingBoltRadius))
 holes.extend(populateholes(XMotorSpot,MotorHoleDiameter/2))
 holes.extend(populateholes(MotorMountHoles,2.5))
 holes.extend(populateholes(BeltHoleNutHoles,BoltRadius))
+holes.extend(populateholes(XGantryBoltHoles,BoltRadius))
 #cutouts
 cutouts=[]
 cutouts.extend(populatecutouts(SlideyBoltHoles))
@@ -923,6 +922,7 @@ holes=[]
 holes.extend(populateholes(XGantryBearingBoltHoles,BearingBoltRadius))
 holes.extend(populateholes(XMotorSpot,SkateBearingRadius))
 holes.extend(populateholes(BeltHoleNutHoles,BoltRadius))
+holes.extend(populateholes(XGantryBoltHoles,BoltRadius))
 offset = increaseoffsets("x",offset,Xlength)
 #Make the second part
 XGantry2 = makethepart(Xlength,Ylength,holes,cutouts,offset)
@@ -953,12 +953,12 @@ BeltSpotBoltHoles = [[BeltSpot[0][0]-QuarterInch,UpperCorner[1]-QuarterInch],\
                      [BeltSpot[2][0]-QuarterInch,UpperCorner[1]-QuarterInch],\
                      [BeltSpot[3][0]+QuarterInch,UpperCorner[1]-QuarterInch]]
 
-BoltSpot = [[LowerCorner[0]+75,LowerCorner[1]+SpringSpace],\
-            [LowerCorner[0]+75+QuarterInch,UpperCorner[1]-SpringSpace],\
+BoltSpot = [[LowerCorner[0]+100,LowerCorner[1]+SpringSpace],\
+            [LowerCorner[0]+100+QuarterInch,UpperCorner[1]-SpringSpace],\
             [UpperCorner[0]/2,LowerCorner[1]+SpringSpace],\
             [UpperCorner[0]/2+QuarterInch,UpperCorner[1]-SpringSpace],\
-            [UpperCorner[0]-75-QuarterInch,LowerCorner[1]+SpringSpace],\
-            [UpperCorner[0]-75,UpperCorner[1]-SpringSpace]]
+            [UpperCorner[0]-100-QuarterInch,LowerCorner[1]+SpringSpace],\
+            [UpperCorner[0]-100,UpperCorner[1]-SpringSpace]]
 
 
     
