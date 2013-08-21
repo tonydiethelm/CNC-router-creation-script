@@ -8,6 +8,7 @@
 '''
    There is a section devoted to changable constants (ha!) below.
    Go there and change all the variables to fit your parts and the machine you want to make.
+   FOR THE LOVE OF YOUR SANITY... PUT DECIMALS ON EVERYTHING. IN PYTHON, 1/2=0 AND 1.0/2.0=0.5
        It should be fairly well commented.
    At this point, I haven't made this a proper FreeCAD macro yet. 
        1)Open FreeCAD. 
@@ -195,26 +196,26 @@ QuarterInch = 6.35
 ThreeQuarterInch = 19.05
 ThreeEighthsInch = 9.525
 HalfInch = 25.4/2.0
-BoltRadius = QuarterInch/2
-BearingBoltRadius = ThreeEighthsInch/2
-NutHoleRadius = 25.4/2
-NutHoleOffset = NutHoleRadius*2
+BoltRadius = QuarterInch/2.0
+BearingBoltRadius = ThreeEighthsInch/2.0
+NutHoleRadius = 25.4/2.0
+NutHoleOffset = NutHoleRadius*2.0
 BearingDiameter = 30.73 #From spec sheet
-BearingRadius = BearingDiameter/2
+BearingRadius = BearingDiameter/2.0
 BearingAssyToRail = 14.3 #Measured by Tony. Badly
 BearingRadiusPlusRail = 32.4 #Measured by Tony. Badly. 
-IdlerPulleyDiameter = 28 #Measured by Tony. Badly
-PulleyRadius = 8 #Measured by Tony. Badly
-Nema24 = 60
-Nema23 = 57
+IdlerPulleyDiameter = 28.0 #Measured by Tony. Badly
+PulleyRadius = 8.0 #Measured by Tony. Badly
+Nema24 = 60.0
+Nema23 = 57.0
 Nema17 = 42.3
 Nema24Hole = 38.1
 Nema23Hole = 38.1
-Nema17Hole = 22
-SkateBearingDiameter = 22
-SkateBearingRadius = SkateBearingDiameter/2
-SkateBearingBoltDiameter = 8
-SkateBearingBoltRadius = 4
+Nema17Hole = 22.0
+SkateBearingDiameter = 22.0
+SkateBearingRadius = SkateBearingDiameter/2.0
+SkateBearingBoltDiameter = 8.0
+SkateBearingBoltRadius = 4.0
 
 
 
@@ -243,13 +244,13 @@ ZRodBearingDiameter = 24.0 #This is the diameter of the mounting bearing for the
 Rail = ThreeQuarterInch  #I use 3/4" L bracket from Home Depot/Lowes. Might also use 1/2"?
 #Crap. If you use a different railing size, you'll need to remeasure BearingAssyToRail and BearingRadiusPlusRail located up above.
 
-ZTravel = 25*3 #Z travel is the distance between the top of the X rail and the bottom of the Y gantry. 
+ZTravel = 25.0*3.0 #Z travel is the distance between the top of the X rail and the bottom of the Y gantry. 
 ZOverTravel = 25*1.5 #What amount of Z overtravel (to cut below the X rail line) should there be? This allows you to cut into your own table. I thought it would be nice to be able to custom cut your own table.
 XRailThickness = 25.4*1.75 #This is thickness of the piece of wood the X rails sits on. ie: thickness of your table top if you're bolting railing straight to a table.
 
 #These are set for my table. This is actual length/width of the table, not cutting length. Measure twice!
 #TableX = 25.4*(79+(3/8)) #This no longer matters. I'll remove it on the next rev. 
-TableY = 25.4*(31+(7/8))
+TableY = 25.4*(31.875)  #My table is 31 7/8"
 
 
 
